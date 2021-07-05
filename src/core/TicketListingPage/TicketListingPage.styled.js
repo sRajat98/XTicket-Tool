@@ -9,9 +9,9 @@ export const TicketListingPage = styled.div`
 `;
 
 export const NavContainer = styled.div`
-  width: 20%;
-  height: 96vh;
-  padding: 0.5rem;
+  min-width: 20%;
+  max-width: 25%;
+  padding: 1rem;
   padding-left: 2.2rem;
   padding-top: 2.2rem;
   overflow-y: auto;
@@ -77,7 +77,7 @@ export const subMenuItem = styled.div`
 `;
 
 export const ticketListingComponent = styled.div`
-  width: 80%;
+  flex-grow: 2;
   background-color: ${colors.backgroundGrey};
   overflow: hidden;
 `;
