@@ -70,7 +70,7 @@ export const HeaderView = (payload) => {
                     <i className="fa fa-gear font-size:24px"></i>
                 </div> */}
                     {/* onClickLogout */}
-                    <div className="nav__change-password"><Link to="/reset-password">Change Password</Link></div>
+                    {/* <div className="nav__change-password"><Link to="/reset-password">Change Password</Link></div> */}
                     <div onClick={onClickLogout} className="profile-picture-wrapper">
                         <img src={logout} width="30px" height="30px" />
                     </div>

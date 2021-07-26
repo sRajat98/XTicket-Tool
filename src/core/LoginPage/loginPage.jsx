@@ -92,7 +92,7 @@ export const LoginPages = (payload) => {
       ) : null}
       <div className="footer-logo-container"></div>
       <div className="footer-text-container">
-        Xebia Group © 2020. All rights reserved.
+        Xebia Group © 2021. All rights reserved.
       </div>
     </div>
   );

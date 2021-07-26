@@ -33,7 +33,7 @@ export default class Reports extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentSelect: "TicketStatus",
+      currentSelect: "SLA",
       currentFilterCategory: null,
       isFilterVisible: false,
       selectedYear: null,
@@ -180,7 +180,7 @@ export default class Reports extends Component {
               style={{ textAlign: "center" }}
             >
               <>
-                SLA's Achived Vs Missed
+                SLA's Achieved Vs Missed
                 <p className="reports-container__top--report-date">
                   {this.state.dateVisibilityObject.achievedVsMissed &&
                   this.state.dateVisibilityObject.achievedVsMissed
@@ -243,7 +243,7 @@ export default class Reports extends Component {
           <div className="reports-container__bottom--header">
             <div className="reports-container__bottom--header-headerBottomLine"></div>
             <div className="reports-container__bottom--header-headingsConainer">
-              <div
+              {/* <div
                 className="reports-container__bottom--header-heading"
                 onClick={() => this.updateState("TicketStatus")}
                 style={
@@ -253,7 +253,7 @@ export default class Reports extends Component {
                 }
               >
                 Current Ticket Status
-              </div>
+              </div> */}
               <div
                 className="reports-container__bottom--header-heading"
                 onClick={() => this.updateState("SLA")}
@@ -302,13 +302,17 @@ export default class Reports extends Component {
                 Filter
               </button>
             ) : null}
+          
           </div>
-
           <div className={"reports-container__bottom--reports"}>
-            {this.state.currentSelect === "TicketStatus" ? (
-              <StatusBarChart status={status} />
-            ) : this.state.currentSelect === "SLA" ? (
-              <ResponsiveContainer height="100%" width="70%">
+            {
+              
+            // this.state.currentSelect === "TicketStatus" ? (
+            //   <StatusBarChart status={status} />
+            // ) :
+            slaMissedByDate && slaMissedByDate.length &&
+             this.state.currentSelect === "SLA" ? ( 
+              <ResponsiveContainer width="70%" aspect={3}>
                 <LineChart
                   width={500}
                   height={300}
@@ -332,38 +336,42 @@ export default class Reports extends Component {
                     activeDot={{ r: 8 }}
                   />
                   {/* <Line type="monotone" dataKey="uv" stroke="#82ca9d" /> */}
-                </LineChart>
+                </LineChart> 
               </ResponsiveContainer>
-            ) : (
-              <>
-                <ResponsiveContainer height="100%" width="100%">
-                  <LineChart
-                    width={500}
-                    height={300}
-                    data={slaByDept}
-                    margin={{
-                      top: 5,
-                      right: 30,
-                      left: 20,
-                      bottom: 5,
-                    }}
-                  >
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="empName" />
-                    <YAxis />
-                    <Tooltip />
-                    <Legend />
-                    <Line
-                      type="monotone"
-                      dataKey="resolved"
-                      stroke="#8884d8"
-                      activeDot={{ r: 8 }}
-                    />
-                    <Line type="monotone" dataKey="missed" stroke="#82ca9d" />
-                  </LineChart>
-                </ResponsiveContainer>
-              </>
-            )}
+            ) : null
+             
+            //   (
+            //   <>
+            //     <ResponsiveContainer height="100%" width="100%">
+            //       <LineChart
+            //         width={500}
+            //         height={300}
+            //         data={slaByDept}
+            //         margin={{
+            //           top: 5,
+            //           right: 30,
+            //           left: 20,
+            //           bottom: 5,
+            //         }}
+            //       >
+            //         <CartesianGrid strokeDasharray="3 3" />
+            //         <XAxis dataKey="empName" />
+            //         <YAxis />
+            //         <Tooltip />
+            //         <Legend />
+            //         <Line
+            //           type="monotone"
+            //           dataKey="resolved"
+            //           stroke="#8884d8"
+            //           activeDot={{ r: 8 }}
+            //         />
+            //         <Line type="monotone" dataKey="missed" stroke="#82ca9d" />
+            //       </LineChart>
+            //     </ResponsiveContainer>
+            //   </>
+            // )
+
+            }
           </div>
         </div>
       </div>

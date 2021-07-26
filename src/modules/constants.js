@@ -1,5 +1,7 @@
-// const API_HOST_PATH = "https://xenie.xebia.in";
-const API_HOST_PATH = "https://xdesk.herokuapp.com/ticket-tool/v1";
+ const API_HOST_PATH = "https://xenie.xebia.in";
+ //const API_HOST_PATH = "http://138.91.123.79/ticket-tool/v1";
+ //const API_HOST_PATH = "http://138.91.123.79";
+ //const API_HOST_PATH = "https://xdesk.herokuapp.com";
 // const API_HOST_PATH = "http://168.63.250.105";
 
 export const constants = {
@@ -30,7 +32,7 @@ export const constants = {
     SLAS_DEPARTMENT_RESOLVED: `${API_HOST_PATH}/ticket-tool/v1/analytics/slas/department/resolved`,
     MISSED_VS_ACHIEVED: `${API_HOST_PATH}/ticket-tool/v1/tickets/user/achieved/missed/`,
     MISSED_BY_STATUS: `${API_HOST_PATH}/ticket-tool/v1/tickets/missed/byuser/status`,
-    MISSED_BY_DEPARTMENT: `${API_HOST_PATH}//ticket-tool/v1/tickets/department/users/achieved/missed/`,
+    MISSED_BY_DEPARTMENT: `${API_HOST_PATH}/ticket-tool/v1/tickets/department/users/achieved/missed/`,
     AVERAGE_EFFICIENCY: `${API_HOST_PATH}/ticket-tool/v1/tickets/user/efficiency`,
     SLA_DATE: `${API_HOST_PATH}/ticket-tool/v1/tickets/user/missed/datewise/count`,
     RESET_PASSWORD: `${API_HOST_PATH}/ticket-tool/v1/users/reset-password`,
@@ -41,7 +43,7 @@ export const constants = {
     APPROVAL_LIST: `${API_HOST_PATH}/ticket-tool/v1/approval/dashboard`,
     CUSTOM_TICKET_DETAILS: `${API_HOST_PATH}/ticket-tool/v1/tickets/custom/`,
     CUSTOM_TICKET_MEMBERS: `${API_HOST_PATH}/ticket-tool/v1/tickets/custom/detail/`,
-    CUSTOM_TICKET_REPLIES: `${API_HOST_PATH}ticket-tool/v1/tickets/create/cutom/replies/`,
+    CUSTOM_TICKET_REPLIES: `${API_HOST_PATH}/ticket-tool/v1/tickets/create/cutom/replies/`,
     MONTHLY_FLITER: `${API_HOST_PATH}/ticket-tool/v1/tickets/user/status/monthly/`,
     DOWNLOAD_ALL_TICKETS: `${API_HOST_PATH}/ticket-tool/v1/tickets/user/missed/allslas/file`,
     DOWNLOAD_MISSED_TICKETS: `${API_HOST_PATH}/ticket-tool/v1/tickets/user/missed/department/file`,

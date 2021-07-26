@@ -131,7 +131,7 @@ export default class TicketFilters extends Component {
                     {/* <span className="ticketlistFilters--REVIEW" onClick={() => { this.props.statusFilter("REVIEW"); this.props.changeFilterSelectValue("REVIEW") }}>REVIEW:{this.state.statusData.REVIEW}</span>&nbsp;&nbsp; */}
                     <span className="ticketlistFilters--ESCALATED" onClick={() => { this.props.statusFilter("ESCALATED"); this.props.changeFilterSelectValue("ESCALATED") }}>Escalated:<span className="ticketlistFilters--value">{this.state.statusData.ESCALATED}</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                     {/* <span className="ticketlistFilters--CLOSED" onClick={() => { this.props.statusFilter("CLOSED"); this.props.changeFilterSelectValue("CLOSED") }}>CLOSED:{this.state.statusData.CLOSED}</span>&nbsp;&nbsp; */}
-                    <span className="ticketlistFilters--REOPENED" onClick={() => { this.props.statusFilter("REOPENED"); this.props.changeFilterSelectValue("REOPENED") }}>Repoened:<span className="ticketlistFilters--value">{this.state.statusData.REOPENED}</span></span>&nbsp;&nbsp;&nbsp;
+                    <span className="ticketlistFilters--REOPENED" onClick={() => { this.props.statusFilter("REOPENED"); this.props.changeFilterSelectValue("REOPENED") }}>Reopened:<span className="ticketlistFilters--value">{this.state.statusData.REOPENED}</span></span>&nbsp;&nbsp;&nbsp;
                     <span className="ticketlistFilters--RESOLVED" onClick={() => { this.props.statusFilter("RESOLVED"); this.props.changeFilterSelectValue("RESOLVED") }}>Resolved:<span className="ticketlistFilters--value">{this.state.statusData.RESOLVED}</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                 </>
             </div>

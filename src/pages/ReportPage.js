@@ -107,7 +107,7 @@ class ReportPage extends Component {
         currentDate: currentDate,
       },
       () => {
-        this.state.allTickets.map((ticket) => {
+        !this.state.allTickets ? null : this.state.allTickets.map((ticket) => {
           switch (ticket.status) {
             case "OPEN":
               this.setState((prevState) => {
