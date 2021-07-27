@@ -71,6 +71,7 @@ export const getAllAdminUsers = () => (dispatch) => {
 
 export const startAllAdminUsersLoader = () => (dispatch) => {
   dispatch({ type: types.GET_ALL_ADMIN_USERS_LOADING });
+  dispatch({ type: types.GET_ALL_ADMIN_USERS_IN_DEPT_LOADING });
 };
 
 export const getAllDepartments = () => (dispatch) => {

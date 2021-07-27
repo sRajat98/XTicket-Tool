@@ -56,6 +56,15 @@ const commonReducer = (state = initalState, action) => {
           allAdminUsersFailure: false,
         },
       };
+    case types.GET_ALL_ADMIN_USERS_IN_DEPT_LOADING:
+       return {
+         ...state,
+         allAdminData: {
+           ...state.allAdminData,
+           allAdminUsersInDeptLoading: true,
+           allAdminUsersInDeptLoading: false,
+         },
+       };
     case types.GET_ALL_ADMIN_USERS_SUCCESS:
       return {
         ...state,
