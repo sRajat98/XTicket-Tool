@@ -43,7 +43,6 @@ const EmployeeDashboardBody = (props) => {
   };
   useEffect(() => {
     dispatch(resetData());
-    console.log(commonState.allAdminData.allAdminUsersInDept.length);
     if (
       commonState.allAdminData &&
       commonState.allAdminData.allAdminUsersInDept &&
