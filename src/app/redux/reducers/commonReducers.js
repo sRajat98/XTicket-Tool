@@ -8,8 +8,11 @@ const initalState = {
   },
   allAdminData: {
     allAdminUsers: [],
+    allAdminUsersInDept: [],
     allAdminUsersLoading: false,
     allAdminUsersFailure: false,
+    allAdminUsersInDeptLoading: false,
+    allAdminUsersInDeptFailure: false,
   },
   departments: []
 };
@@ -70,6 +73,25 @@ const commonReducer = (state = initalState, action) => {
           ...state.allAdminData,
           allAdminUsersLoading: false,
           allAdminUsersFailure: true,
+        },
+      };
+    case types.GET_ALL_ADMIN_USERS_IN_DEPT_SUCCESS:
+       return {
+         ...state,
+         allAdminData: {
+           ...state.allAdminData,
+           allAdminUsersInDept: action.data.data,
+           allAdminUsersInDeptLoading: false,
+           allAdminUsersInDeptFailure: false,
+         },
+       };
+    case types.GET_ALL_ADMIN_USERS_IN_DEPT_FAILURE:
+      return {
+        ...state,
+        allAdminData: {
+          ...state.allAdminData,
+          allAdminUsersInDeptLoading: false,
+          allAdminUsersInDeptFailure: true,
         },
       };
     case types.GET_ALL_DEPARTMENTS_SUCCESS:
