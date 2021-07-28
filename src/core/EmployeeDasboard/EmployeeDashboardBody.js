@@ -45,12 +45,12 @@ const EmployeeDashboardBody = (props) => {
     dispatch(resetData());
     if (
       commonState.allAdminData &&
-      commonState.allAdminData.allAdminUsers &&
-      commonState.allAdminData.allAdminUsers.length
+      commonState.allAdminData.allAdminUsersInDept &&
+      commonState.allAdminData.allAdminUsersInDept.length
     ) {
       const allUsers = getOnlyLabelValuePair(
         converDatatoDropDownData(
-          commonState.allAdminData.allAdminUsers,
+          commonState.allAdminData.allAdminUsersInDept,
           "name",
           "emailId"
         )
