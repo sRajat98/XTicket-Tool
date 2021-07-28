@@ -304,10 +304,11 @@ export default class Reports extends Component {
             ) : null}
           </div>
 
-          <div className={"reports-container__bottom--reports"}>
-            {this.state.currentSelect === "TicketStatus" ? (
+          {/* <div className={"reports-container__bottom--reports"}>
+            {/* this.state.currentSelect === "TicketStatus" ? (
               <StatusBarChart status={status} />
-            ) : this.state.currentSelect === "SLA" ? (
+            ) :  
+            {this.state.currentSelect === "SLA" ? (
               <ResponsiveContainer height="100%" width="70%">
                 <LineChart
                   width={500}
@@ -331,7 +332,7 @@ export default class Reports extends Component {
                     stroke="#8884d8"
                     activeDot={{ r: 8 }}
                   />
-                  {/* <Line type="monotone" dataKey="uv" stroke="#82ca9d" /> */}
+                  
                 </LineChart>
               </ResponsiveContainer>
             ) : (
@@ -364,7 +365,8 @@ export default class Reports extends Component {
                 </ResponsiveContainer>
               </>
             )}
-          </div>
+            
+          </div> */}
         </div>
       </div>
     );

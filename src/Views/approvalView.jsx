@@ -48,7 +48,7 @@ const ApprovalView = (props) => {
     mapChangesToState({ isApprovalLoading: true });
     axios
       .post(
-        `${constants.SERVICE_URLS.APPROVAL_JOURNEY}/${state.fetchedUrlParams.ticketID}?approver=${state.fetchedUrlParams.approver}&token=${state.fetchedUrlParams.token}`
+        `${constants.SERVICE_URLS.APPROVAL_JOURNEY}/${state.fetchedUrlParams.ticketID}?approver=${state.fetchedUrlParams.approver}&token=${state.fetchedUrlParams.token}&approverComment=${state.comment}`
       )
       .then((res) => {
         setApprovalStatus(res.status);
