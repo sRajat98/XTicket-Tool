@@ -4,6 +4,7 @@ const configs = {
   getAllStatus: "tickets/ticket-status",
   getTicketsByStatus: "tickets/status",
   getAllAdmins: "users/admins",
+  getAllAdminsInDept: "users/department/admins",
   changeTicketAssignee: "tickets/assign/",
   getAllDepartments: "master-data/departments",
   searchUser: "users/searchUser",

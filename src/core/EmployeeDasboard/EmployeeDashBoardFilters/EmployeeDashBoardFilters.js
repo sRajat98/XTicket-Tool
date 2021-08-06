@@ -51,7 +51,7 @@ const EmployeeDashBoardFilters = (props) => {
         <Button
           variant="primary"
           onClick={props.filterTickets}
-          // disabled={!props.valid}
+          disabled={!props.valid}
         >
           Filter
         </Button>

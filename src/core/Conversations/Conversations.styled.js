@@ -48,9 +48,12 @@ export const attachmentIcon = styled.img`
 `;
 
 export const noConversationsText = styled.div`
-  width: 41%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-size: 1.3rem;
-  margin: 4rem auto;
+  margin: 4rem 0;
   color: ${colors.colorLightGrey};
   font-weight: 500;
 `;

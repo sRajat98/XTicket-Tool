@@ -46,12 +46,12 @@ const EmployeeDashboardBody = (props) => {
     dispatch(resetData());
     if (
       commonState.allAdminData &&
-      commonState.allAdminData.allAdminUsers &&
-      commonState.allAdminData.allAdminUsers.length
+      commonState.allAdminData.allAdminUsersInDept &&
+      commonState.allAdminData.allAdminUsersInDept.length
     ) {
       const allUsers = getOnlyLabelValuePair(
         converDatatoDropDownData(
-          commonState.allAdminData.allAdminUsers,
+          commonState.allAdminData.allAdminUsersInDept,
           "name",
           "emailId"
         )
@@ -69,7 +69,18 @@ const EmployeeDashboardBody = (props) => {
 
   const getAllDashboardData = (email, startDate, requestParams) => {
     dispatch(showLoader());
-    dispatch(getUserTickets(email, startDate, toDate, state.selectedStatus));
+    const getTicketParams = {
+      page: 0,
+      limit: 10,
+      email: email,
+      startDate,
+      endDate: toDate,
+      status:
+        (state.selectedStatus.length &&
+          state.selectedStatus.map((status) => status.label).toString()) ||
+        "",
+    };
+    dispatch(getUserTickets(getTicketParams));
     props.dispatch(actionCreators.resetEmployeeTicketStatusCount());
     props.dispatch(actionCreators.startEmployeeTicketStatusCountLoader());
     props.dispatch(actionCreators.getEmployeeTicketStatusCount(requestParams));
