@@ -1,3 +1,7 @@
-node_modules
-build
+# dependencies
+/node_modules
+
+# production
+/build
+
 build.zip
