@@ -81,7 +81,8 @@ const Ticket = (props) => {
       </styled.topContainer>
       <styled.bottomContainer>
         <LabelValueContainer label="Created By" value={data.name} />
-        <LabelValueContainer label="Sub Issue" value={data.subIssue} />
+        <LabelValueContainer label="Category" value={data.subIssue} />
+        { data.subCategory ? <LabelValueContainer label="Sub Category" value={data.subCategory} /> : ""}
         <LabelValueContainer
           label="Classification"
           value={data.classification}
@@ -91,9 +92,14 @@ const Ticket = (props) => {
           value={getDateAndTime(data.creationTime)}
         />
         <LabelValueContainer
-          label="Due On"
+          label="Response Due"
+          value={getDateAndTime(data.acknowledgmentTime)}
+        />
+        <LabelValueContainer
+          label="Resolution Due"
           value={getDateAndTime(data.dueOn)}
         />
+        
         <styled.assigneeContainer>
           {(state.isLoading) && ticketListState.ticket.currentTicket == data.id ? (
             <Loader />
