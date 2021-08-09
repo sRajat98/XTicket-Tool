@@ -33,7 +33,7 @@ export default class Reports extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentSelect: "TicketStatus",
+      currentSelect: "SLA",
       currentFilterCategory: null,
       isFilterVisible: false,
       selectedYear: null,
@@ -173,7 +173,7 @@ export default class Reports extends Component {
         <div className="reports-container__top">
           <div
             className="reports-container__top--report"
-            style={{ flexGrow: 3 }}
+            style={{ flexGrow: 3, height: 245 }}
           >
             <div
               className="reports-container__top--report-header"
@@ -201,7 +201,7 @@ export default class Reports extends Component {
           </div>
           <div
             className="reports-container__top--report"
-            style={{ flexGrow: 2 }}
+            style={{ flexGrow: 2, height: 245 }}
           >
             <div
               className="reports-container__top--report-header"
@@ -214,7 +214,10 @@ export default class Reports extends Component {
             </div>
             {ratings ? <Ratings ratings={ratings} /> : <Loader />}
           </div>
-          <div className="reports-container__top--report">
+          <div
+            className="reports-container__top--report"
+            style={{ height: 245 }}
+          >
             <div
               className="reports-container__top--report-header"
               style={{ textAlign: "center", marginBottom: "2rem" }}
@@ -226,7 +229,10 @@ export default class Reports extends Component {
             </div>
             <SLAMissedByStatus missedByStatus={missedByStatus} />
           </div>
-          <div className="reports-container__top--report">
+          <div
+            className="reports-container__top--report"
+            style={{ height: 245 }}
+          >
             <div
               className="reports-container__top--report-header"
               style={{ textAlign: "left" }}
@@ -243,7 +249,7 @@ export default class Reports extends Component {
           <div className="reports-container__bottom--header">
             <div className="reports-container__bottom--header-headerBottomLine"></div>
             <div className="reports-container__bottom--header-headingsConainer">
-              <div
+              {/* <div
                 className="reports-container__bottom--header-heading"
                 onClick={() => this.updateState("TicketStatus")}
                 style={
@@ -253,7 +259,7 @@ export default class Reports extends Component {
                 }
               >
                 Current Ticket Status
-              </div>
+              </div> */}
               <div
                 className="reports-container__bottom--header-heading"
                 onClick={() => this.updateState("SLA")}
@@ -305,42 +311,16 @@ export default class Reports extends Component {
           </div>
 
           <div className={"reports-container__bottom--reports"}>
-            {this.state.currentSelect === "TicketStatus" ? (
-              <StatusBarChart status={status} />
-            ) : this.state.currentSelect === "SLA" ? (
-              <ResponsiveContainer height="100%" width="70%">
-                <LineChart
-                  width={500}
-                  height={300}
-                  data={slaMissedByDate}
-                  margin={{
-                    top: 5,
-                    right: 30,
-                    left: 20,
-                    bottom: 5,
-                  }}
-                >
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="name" />
-                  <YAxis />
-                  <Tooltip />
-                  <Legend />
-                  <Line
-                    type="monotone"
-                    dataKey="value"
-                    stroke="#8884d8"
-                    activeDot={{ r: 8 }}
-                  />
-                  {/* <Line type="monotone" dataKey="uv" stroke="#82ca9d" /> */}
-                </LineChart>
-              </ResponsiveContainer>
-            ) : (
-              <>
-                <ResponsiveContainer height="100%" width="100%">
+            {
+              // this.state.currentSelect === "TicketStatus" ? (
+              //   <StatusBarChart status={status} />
+              // ) :
+              this.state.currentSelect === "SLA" && slaMissedByDate ? (
+                <ResponsiveContainer aspect={3.5} width="70%">
                   <LineChart
                     width={500}
                     height={300}
-                    data={slaByDept}
+                    data={slaMissedByDate}
                     margin={{
                       top: 5,
                       right: 30,
@@ -349,21 +329,56 @@ export default class Reports extends Component {
                     }}
                   >
                     <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="empName" />
+                    <XAxis dataKey="name" />
                     <YAxis />
                     <Tooltip />
                     <Legend />
                     <Line
                       type="monotone"
-                      dataKey="resolved"
+                      dataKey="value"
                       stroke="#8884d8"
                       activeDot={{ r: 8 }}
                     />
-                    <Line type="monotone" dataKey="missed" stroke="#82ca9d" />
+                    {/* <Line type="monotone" dataKey="uv" stroke="#82ca9d" /> */}
                   </LineChart>
                 </ResponsiveContainer>
-              </>
-            )}
+              ) : (
+                slaByDept && (
+                  <>
+                    <ResponsiveContainer aspect={5.1} width="100%">
+                      <LineChart
+                        width={500}
+                        height={300}
+                        data={slaByDept}
+                        margin={{
+                          top: 5,
+                          right: 30,
+                          left: 20,
+                          bottom: 5,
+                        }}
+                      >
+                        <CartesianGrid strokeDasharray="3 3" />
+                        <XAxis dataKey="empName" />
+                        <YAxis />
+                        <Tooltip />
+                        <Legend />
+                        <Line
+                          type="monotone"
+                          dataKey="resolved"
+                          stroke="#8884d8"
+                          activeDot={{ r: 8 }}
+                        />
+                        <Line
+                          type="monotone"
+                          dataKey="missed"
+                          stroke="#82ca9d"
+                        />
+                      </LineChart>
+                    </ResponsiveContainer>
+                  </>
+                )
+              )
+            }
           </div>
         </div>
       </div>
