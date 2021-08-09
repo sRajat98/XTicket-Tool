@@ -70,6 +70,7 @@ export const assigneeContainer = styled.div`
   flex-grow: 2;
   font-size: 12px;
   margin: 0.5rem 1rem 0 1rem;
+  width:120px;
 `;
 
 export const labelValueContainer = styled.div`
