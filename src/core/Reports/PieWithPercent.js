@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { PieChart, Pie, Sector, ResponsiveContainer } from "recharts";
+import { PieChart, Pie, Sector, ResponsiveContainer, Cell, } from "recharts";
+import { colors } from './../../app/themes/variables';
 
 const PieWithPercent = (props) => {
   const [state, setState] = useState({ activeIndex: 0 });
-
   const mapChangesToState = (value) => setState({ ...state, ...value });
 
   const onPieEnter = (_, index) => {
@@ -11,6 +11,24 @@ const PieWithPercent = (props) => {
       activeIndex: index,
     });
   };
+
+  const COLORS = [
+    colors.openTicketBackground,
+    colors.xenieBlue,
+    colors.inProgressTicketBackground,
+    colors.awaitingTicketBackground,
+    colors.xenieBlue,
+    colors.escalatedTicketBackground,
+    colors.closedTicketBackground,
+    colors.xenieBlue,
+    colors.resolvedTicketBackground,
+    colors.xenieBlue,
+    colors.xenieBlue];
+
+  const SLACOLORS = [
+    '#0088FE',
+    colors.resolvedTicketBackground,
+  ];
 
   const renderActiveShape = (props) => {
     const RADIAN = Math.PI / 180;
@@ -71,7 +89,7 @@ const PieWithPercent = (props) => {
           y={ey}
           textAnchor={textAnchor}
           fill="#333"
-        >{`${props.tooltipLabel || "PV"} ${value}`}</text>
+        >{`${props.tooltipLabel || props.name} (${value})`}</text>
         <text
           x={ex + (cos >= 0 ? 1 : -1) * 12}
           y={ey}
@@ -98,7 +116,11 @@ const PieWithPercent = (props) => {
           fill="#8884d8"
           dataKey="value"
           onMouseEnter={onPieEnter}
-        />
+        >
+          {props.data.map((entry, index) => (
+            <Cell key={`cell-${index}`} fill={props.data.length === 2 ? SLACOLORS[index % SLACOLORS.length] : COLORS[index % COLORS.length]} />
+          ))}
+        </Pie>
       </PieChart>
     </ResponsiveContainer>
   );

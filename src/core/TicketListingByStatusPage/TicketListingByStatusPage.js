@@ -112,8 +112,8 @@ const TicketListingByStatusPage = (props) => {
           <>
             {getPageTrackingInformation()}
             {props.ticketList &&
-            props.ticketList.ticketList &&
-            props.ticketList.ticketList.length ? (
+              props.ticketList.ticketList &&
+              props.ticketList.ticketList.length ? (
               props.ticketList.ticketList.map((ticketData) => {
                 return (
                   <Ticket

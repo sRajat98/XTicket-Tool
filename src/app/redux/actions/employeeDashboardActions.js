@@ -26,8 +26,8 @@ export const getEmployeeTicketStatusCount = (requestParams) => (dispatch) => {
 
 const transformSlaData = (data) => {
   return [
-    { name: "Missed", value: data.missed },
-    { name: "Resolved", value: data.missed },
+    { name: "MISSED", value: data.missed },
+    { name: "RESOLVED", value: data.resolved },
   ];
 };
 

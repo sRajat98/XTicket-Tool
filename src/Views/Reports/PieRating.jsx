@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { PieChart, Pie, Tooltip, Sector, Cell } from "recharts";
+import { PieChart, Pie, Sector, Cell } from "recharts";
 import Loader from "../../Components/Loader/Loader";
+import { colors } from "./../../app/themes/variables";
 
 const PieRating = ({ SLAPie }) => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -9,7 +10,7 @@ const PieRating = ({ SLAPie }) => {
     setActiveIndex(index);
   };
 
-  const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
+  const COLORS = [colors.resolvedTicketBackground, "#0088FE"];
 
   const renderActiveShape = (props) => {
     const RADIAN = Math.PI / 180;
@@ -70,7 +71,7 @@ const PieRating = ({ SLAPie }) => {
           y={ey}
           textAnchor={textAnchor}
           fill="#333"
-        >{`PV ${value}`}</text>
+        >{`${payload.name} (${value})`}</text>
         <text
           x={ex + (cos >= 0 ? 1 : -1) * 12}
           y={ey}

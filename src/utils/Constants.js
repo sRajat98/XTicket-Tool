@@ -106,7 +106,7 @@ export const getColorBasedOnStatus = (status) => {
       return colors.awaitingTicketBackground;
     }
     case "RESOLVED": {
-      return colors.awaitingTicketBackground;
+      return colors.resolvedTicketBackground;
     }
     default:
       return colors.xenieBlue;
