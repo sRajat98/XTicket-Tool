@@ -111,3 +111,10 @@ export const filterBtn = styled.button`
 export const totalTickets = styled.div`
   color: ${colors.colorLightGrey};
 `;
+export const pageTracker = styled.p`
+  font-size: 1.3rem;
+  color: ${colors.colorLightGrey};
+  position:
+  display: flex;
+  flex-direction: row-reverse;
+`;

@@ -15,6 +15,7 @@ const initalState = {
     error: false,
     errorMessage: "",
   },
+  getnumberOfPages:0,
 };
 
 const employeeDashboardReducer = (state = initalState, action) => {
@@ -107,6 +108,7 @@ const employeeDashboardReducer = (state = initalState, action) => {
       return {
         ...state,
         tickets: action.data.result.tickets || [],
+        getnumberOfPages:action.data.numberOfPages,
         loading: false,
         error: false,
       };

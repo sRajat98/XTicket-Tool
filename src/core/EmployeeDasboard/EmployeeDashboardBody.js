@@ -16,7 +16,7 @@ import {
 import * as styled from "./EmployeeDashboard.styled";
 import EmployeeDashBoardNavbar from "./EmployeeDashBoardNavBar/EmployeeDashBoardNavbar";
 import EmployeeDasboardReports from "./EmployeeDashboardReports/EmployeeDasboardReports";
-
+import Pagination from "core/Pagination/Pagination";
 const EmployeeDashboardBody = (props) => {
   const [state, setState] = useState({
     selectedUser: null,
@@ -25,6 +25,7 @@ const EmployeeDashboardBody = (props) => {
     selectedStatus: [],
     currentSelectedTicket: {},
     selectedNavItem: "employeeTickets",
+    currentPageNumber: 1,
   });
   const [show, setShow] = useState(false);
   const [fromDate, setFromDate] = useState("");
@@ -37,6 +38,7 @@ const EmployeeDashboardBody = (props) => {
   const mapChangesToState = (value) => setState({ ...state, ...value });
   const commonState = useSelector((state) => state.common);
   const dashboardState = useSelector((state) => state.employeeDashboard);
+  const getnumberOfPages = useSelector((state) => state.getnumberOfPages);
   const handleTicketClick = (currentSelectedTicket) => {
     if (!state.isPreviewVisible)
       mapChangesToState({ currentSelectedTicket, isPreviewVisible: true });
@@ -65,11 +67,11 @@ const EmployeeDashboardBody = (props) => {
       mapChangesToState({ allUsers, allStatus });
     }
   }, [commonState.allAdminData]);
-
+ 
   const getAllDashboardData = (email, startDate, requestParams) => {
     dispatch(showLoader());
     const getTicketParams = {
-      page: 0,
+      page: state.currentPageNumber - 1,
       limit: 10,
       email: email,
       startDate,
@@ -85,6 +87,26 @@ const EmployeeDashboardBody = (props) => {
     props.dispatch(actionCreators.getEmployeeSlaInfo(requestParams));
   };
 
+  useEffect(()=>{
+    let todayDate = new Date().toISOString().slice(0, 10);
+    let startdate = fromDate || todayDate;
+    console.log(state.selectedUser);
+    let user=state.selectedUser ? state.selectedUser.value : "admin";
+    const requestParams = {
+      email: user,
+      startDate:fromDate || todayDate,
+      endDate: toDate || "",
+    };
+
+    
+    getAllDashboardData(user, startdate, requestParams)
+  },[state.currentPageNumber]);
+  const increasePageCount = () => {
+    mapChangesToState({ currentPageNumber: state.currentPageNumber + 1 });
+  };
+  const decreasePageCount = () => {
+    mapChangesToState({ currentPageNumber: state.currentPageNumber - 1 });
+  };
   const setUser = (user) => {
     mapChangesToState({ selectedUser: user });
     let todayDate = new Date().toISOString().slice(0, 10);
@@ -117,9 +139,27 @@ const EmployeeDashboardBody = (props) => {
       getAllDashboardData(state.selectedUser.value, startDate, requestParams);
     }
   };
-
+  const getPageTrackingInformation = () => {
+    return (
+      <styled.pageTracker>
+        Page {state.currentPageNumber} of {dashboardState.getnumberOfPages}
+      </styled.pageTracker>
+    );
+  };
   return (
+    
     <styled.body>
+      <div style={{display: "flex",flexDirection: "row-reverse"}}>
+       
+      {state.selectedUser  ? <Pagination
+          currentPage={state.currentPageNumber}
+          maxPages={dashboardState.getnumberOfPages}
+          nextPage={increasePageCount}
+          prevPage={decreasePageCount}
+          limit={10}
+        />: ""}
+      </div>
+      
       <styled.selectSubHeading>Select Employee</styled.selectSubHeading>
       <styled.dropDownContainer>
         <DropDown
@@ -155,6 +195,7 @@ const EmployeeDashboardBody = (props) => {
             mapChangesToState={mapChangesToState}
             selectedNavItem={state.selectedNavItem}
           />
+           {getPageTrackingInformation()}
           {state.selectedNavItem === "employeeTickets" && (
             <EmployeeDashboardTicketsContainer
               dashboardState={dashboardState}
@@ -176,6 +217,8 @@ const mapStatetoProps = (state) => {
   return {
     allAdminData: state.common.allAdminData,
     employeeDashboard: state.employeeDashboard,
+    common: state.common,
+    getnumberOfPages:state.getnumberOfPages
   };
 };
 
