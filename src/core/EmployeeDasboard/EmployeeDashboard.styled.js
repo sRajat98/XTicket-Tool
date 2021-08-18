@@ -114,7 +114,6 @@ export const totalTickets = styled.div`
 export const pageTracker = styled.p`
   font-size: 1.3rem;
   color: ${colors.colorLightGrey};
-  position:
-  display: flex;
+  display:flex;
   flex-direction: row-reverse;
 `;
