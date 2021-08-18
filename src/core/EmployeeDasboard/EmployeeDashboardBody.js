@@ -141,25 +141,28 @@ const EmployeeDashboardBody = (props) => {
   };
   const getPageTrackingInformation = () => {
     return (
-      <styled.pageTracker>
+      <div style={{display: "flex",flexDirection: "row-reverse",position:"relative"}}>
+        <div>
+       
+                {state.selectedUser  ? <Pagination
+                    currentPage={state.currentPageNumber}
+                    maxPages={dashboardState.getnumberOfPages}
+                    nextPage={increasePageCount}
+                    prevPage={decreasePageCount}
+                    limit={10}
+                  />: ""}
+       </div>
+       <styled.pageTracker>
         Page {state.currentPageNumber} of {dashboardState.getnumberOfPages}
       </styled.pageTracker>
+      </div>
+     
+      
     );
   };
   return (
     
     <styled.body>
-      <div style={{display: "flex",flexDirection: "row-reverse"}}>
-       
-      {state.selectedUser  ? <Pagination
-          currentPage={state.currentPageNumber}
-          maxPages={dashboardState.getnumberOfPages}
-          nextPage={increasePageCount}
-          prevPage={decreasePageCount}
-          limit={10}
-        />: ""}
-      </div>
-      
       <styled.selectSubHeading>Select Employee</styled.selectSubHeading>
       <styled.dropDownContainer>
         <DropDown
@@ -195,14 +198,18 @@ const EmployeeDashboardBody = (props) => {
             mapChangesToState={mapChangesToState}
             selectedNavItem={state.selectedNavItem}
           />
-           {getPageTrackingInformation()}
+           
           {state.selectedNavItem === "employeeTickets" && (
-            <EmployeeDashboardTicketsContainer
+            <div>
+              {getPageTrackingInformation()}
+              <EmployeeDashboardTicketsContainer
               dashboardState={dashboardState}
               allUsers={state.allUsers}
               mapChangesToState={mapChangesToState}
               handleTicketClick={handleTicketClick}
             />
+            </div>
+            
           )}
           {state.selectedNavItem === "employeeRepors" && (
             <EmployeeDasboardReports />

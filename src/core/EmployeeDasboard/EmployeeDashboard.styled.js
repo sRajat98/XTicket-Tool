@@ -37,8 +37,8 @@ export const ticketContainer = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;
-  min-height: 65vh;
-  max-height: 65vh;
+  min-height: 50vh;
+  max-height: 50vh;
   overflow: auto;
   margin-top: 2rem;
   scroll-behavior: smooth;
@@ -114,6 +114,6 @@ export const totalTickets = styled.div`
 export const pageTracker = styled.p`
   font-size: 1.3rem;
   color: ${colors.colorLightGrey};
-  display:flex;
-  flex-direction: row-reverse;
+  margin:8px;
+  
 `;
