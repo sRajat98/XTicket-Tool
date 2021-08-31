@@ -468,6 +468,16 @@ const TicketView = (payload) => {
                                 />
                               )}
                             </span>
+                            {approval.approversComment !== "" ? (
+                              <>
+                                <div className="ticket-brief-approvers">
+                                  Comment:
+                                </div>
+                                <span className="approver-comment">
+                                  {approval.approversComment}
+                                </span>
+                              </>
+                            ) : null}
                           </div>
                         ))
                       : null}
