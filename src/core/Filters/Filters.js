@@ -15,7 +15,7 @@ function Filters (props){
       setFormopen(!formopen);
     };
     
-   return <div style={{display: "flex",justifyContent: "center",alignItems: "center",height:"100px"}}>
+   return <div style={{display: "flex",justifyContent: "start",alignItems: "center",height:"100px",marginLeft:"30px"}}>
           <button class="btn btn-primary btn-sm" onClick={setfilterform}>Filters</button>
         <img
             src={downArrow}
