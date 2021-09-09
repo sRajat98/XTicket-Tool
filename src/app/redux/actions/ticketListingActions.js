@@ -21,7 +21,25 @@ export const getTicketByStatus = (requestParams, status) => (dispatch) => {
       dispatch({ type: types.GET_ALL_TICKETS_BY_STATUS_FAILURE, error })
   );
 };
+/******Function to get the tickets with Filters********/
 
+export const getTicketByStatusFilter = (requestParams, status) => (dispatch) => {
+  XenieApi.get(
+    `${exportUrl + configs.getTicketsByStatus}/${status}`,
+    null,
+    requestParams
+  ).then(
+    (response) => {
+      dispatch({
+        type: types.GET_ALL_TICKETS_BY_STATUS_SUCCESS,
+        data: response.data,
+        status,
+      });
+    },
+    (error) =>
+      dispatch({ type: types.GET_ALL_TICKETS_BY_STATUS_FAILURE, error })
+  );
+};
 export const startGetTicketByStatusLoader = () => (dispatch) => {
   dispatch({ type: types.GET_ALL_TICKETS_BY_STATUS_LOADING });
 };

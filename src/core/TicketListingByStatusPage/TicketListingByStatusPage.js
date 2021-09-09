@@ -15,8 +15,10 @@ import Ticket from "../Ticket/Ticket";
 import { AnimatePresence } from "framer-motion";
 import TicketPreview from "core/TicketPreview/TicketPreview";
 import Pagination from "core/Pagination/Pagination";
+import Filters from "core/Filters/Filters";
 
 const TicketListingByStatusPage = (props) => {
+  //console.log("test",props.ticketList)
   const dispatch = useDispatch();
   const [state, setState] = useState({
     allAdminData: [],
@@ -25,9 +27,10 @@ const TicketListingByStatusPage = (props) => {
     isPreviewVisible: false,
     currentSelectedTicket: {},
     currentPageNumber: 1,
+    color:"red"
   });
   const mapChangesToState = (value) => {
-    setState({ ...state, ...value });
+       setState({ ...state, ...value });
   };
 
   const handleTicketClick = (currentSelectedTicket) => {
@@ -63,9 +66,11 @@ const TicketListingByStatusPage = (props) => {
         actionCreators.getTicketByStatus(requestParams, props.selectedKey)
       );
     });
+    
   }, [props.selectedKey, state.currentPageNumber]);
 
   useEffect(() => {
+    
     if (
       props.common.allAdminData &&
       props.common.allAdminData.allAdminUsers &&
@@ -80,23 +85,81 @@ const TicketListingByStatusPage = (props) => {
       );
       mapChangesToState({ allAdminData });
     }
+    tofindthecolor();
   }, [props.common.allAdminData]);
 
+  /********colors based on the select******/
+  function tofindthecolor (){
+    
+    console.log(props.selectedKey,"se")
+    switch (props.selectedKey) {
+      case "OPEN":
+        
+        mapChangesToState({ color:"#fa9418" });
+        break;
+      case "ASSIGNED":
+          mapChangesToState({ color:"#232d37" });
+          break;
+      case "INPROGRESS":
+            mapChangesToState({ color:"#E3E109" });
+            break;
+      case "AWAITING":
+            mapChangesToState({ color:"#6114FD" });
+            break;
+      case "REVIEW":
+            mapChangesToState({ color:"#232d37" });
+            break;
+      case "ESCALATED":
+            mapChangesToState({ color:"#E30928" });
+            break;
+      case "CLOSED":
+            mapChangesToState({ color:"#0AFD5E" });
+            break;
+      case "REOPENED":
+            mapChangesToState({ color:"#232d37" });
+            break;
+      case "RESOLVED":
+            mapChangesToState({ color:"#98FF00" });
+            break;
+      case "AWAITINGVENDOR":
+            mapChangesToState({ color:"#354255" });
+            break;
+      case "AWAITINGUSER":
+        mapChangesToState({ color:"#354255" });
+        break;
+
+                     
+      default:
+        break;
+    }
+  }
   const { ticketListFailure, ticketListLoading } = props.ticketList;
   return (
     <>
       <styled.header>
+     
         <styled.heading>
-          {capitalizeFirstLetter(props.selectedKey)} Tickets
+       
+          {capitalizeFirstLetter(props.selectedKey)} Tickets  <span>
+          <styled.countbubble style={{"background": `${state.color}`}}> {props.ticketList.ticketcount}</styled.countbubble>
+        </span>
+          
         </styled.heading>
+       
+       
         <Pagination
           currentPage={state.currentPageNumber}
           maxPages={props.ticketList.totalPages}
           nextPage={increasePageCount}
           prevPage={decreasePageCount}
         />
+      
       </styled.header>
-
+      <div>
+      
+      <Filters status={props.selectedKey}></Filters>
+      </div>
+      
       <styled.container>
         {ticketListLoading ? (
           <GlobalStyled.loaderContainer height={"65vh"}>
@@ -148,7 +211,8 @@ const TicketListingByStatusPage = (props) => {
 const mapStatetoProps = (state) => {
   return {
     common: state.common,
-    ticketList: state.ticketList,
+    ticketList: state.ticketList
+
   };
 };
 export default connect(mapStatetoProps)(React.memo(TicketListingByStatusPage));

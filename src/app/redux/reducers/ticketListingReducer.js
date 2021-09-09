@@ -13,7 +13,11 @@ const initalState = {
     error: false,
     errorMessage: "",
     errorTitle: "",
-  }
+  },
+  classification:"",
+  ticketcount:0,
+  logindept:""
+
 };
 
 const ticketListingReducer = (state = initalState, action) => {
@@ -39,6 +43,29 @@ const ticketListingReducer = (state = initalState, action) => {
         currentTicketStatus: action.status,
         ticketListFailure: false,
         ticketListLoading: false,
+        ticketcount:action.data.totalNumberOfTickets,
+        logindept:action.data.loggedInDepartmentName
+      };
+    }
+    /*****Get All the tickets with filters*****/
+
+    case types.GET_TICKETS_DETAILS_wITH_FILLTER: {
+      let tickets = []
+      if(action.data.result && action.data.result.tickets){
+        tickets = action.data.result.tickets.map(ticket => (
+          {...ticket, isLoading: false, isError: false, errorTitle: '', errorMsg: '' }
+        ))
+      }
+      return {
+        ...state,
+        ticketList: tickets,
+        totalPages: action.data.numberOfPages,
+        currentTicketStatus: action.status,
+        ticketListFailure: false,
+        ticketListLoading: false,
+        ticketcount:action.data.totalNumberOfTickets,
+        logindept:action.data.loggedInDepartmentName
+       
       };
     }
     case types.GET_ALL_TICKETS_BY_STATUS_FAILURE: {
