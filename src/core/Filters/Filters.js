@@ -16,7 +16,7 @@ function Filters (props){
     };
     
    return <div style={{display: "flex",justifyContent: "start",alignItems: "center",height:"100px",marginLeft:"30px"}}>
-          <button class="btn btn-primary btn-sm" onClick={setfilterform}>Filters</button>
+          <button className="btn btn-primary btn-sm" onClick={setfilterform}>Filters</button>
         <img
             src={downArrow}
             alt="down arrow"

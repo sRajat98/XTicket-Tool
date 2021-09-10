@@ -112,7 +112,7 @@ function Filterform (props){
                     disabled={false}
                     isDisabled={false}
                     placeholder={"Test"}
-                    key={1}
+                    
                     menuPlacement={"bottom"}
                     />
                     
@@ -129,13 +129,13 @@ function Filterform (props){
                     disabled={false}
                     isDisabled={false}
                     placeholder={"Test"}
-                    key={1}
+                    
                     menuPlacement={"bottom"}
                     />
                 </div>
                  <div className="row" style={{justifyContent: "center", padding:" 5px"}}>
-                     <button type="button" style={{margin:" 5px"}} class="btn btn-primary btn-sm" onClick={OnclickHandleSubmit}>Apply</button>
-                     <button type="button" style={{margin:" 5px"}}class="btn btn-primary btn-sm" onClick={OnclickHandleReset}>Reset</button>
+                     <button type="button" style={{margin:" 5px"}} className="btn btn-primary btn-sm" onClick={OnclickHandleSubmit}>Apply</button>
+                     <button type="button" style={{margin:" 5px"}}className="btn btn-primary btn-sm" onClick={OnclickHandleReset}>Reset</button>
                 </div>
             </form>
         </styles.formdiv>

@@ -27,7 +27,7 @@ const TicketListingByStatusPage = (props) => {
     isPreviewVisible: false,
     currentSelectedTicket: {},
     currentPageNumber: 1,
-    color:"red"
+   
   });
   const mapChangesToState = (value) => {
        setState({ ...state, ...value });
@@ -55,6 +55,7 @@ const TicketListingByStatusPage = (props) => {
     );
   };
   useEffect(() => {
+    
     const requestParams = {
       page: state.currentPageNumber - 1,
       limit: 15,
@@ -70,7 +71,6 @@ const TicketListingByStatusPage = (props) => {
   }, [props.selectedKey, state.currentPageNumber]);
 
   useEffect(() => {
-    
     if (
       props.common.allAdminData &&
       props.common.allAdminData.allAdminUsers &&
@@ -85,54 +85,9 @@ const TicketListingByStatusPage = (props) => {
       );
       mapChangesToState({ allAdminData });
     }
-    tofindthecolor();
+    
   }, [props.common.allAdminData]);
 
-  /********colors based on the select******/
-  function tofindthecolor (){
-    
-    console.log(props.selectedKey,"se")
-    switch (props.selectedKey) {
-      case "OPEN":
-        
-        mapChangesToState({ color:"#fa9418" });
-        break;
-      case "ASSIGNED":
-          mapChangesToState({ color:"#232d37" });
-          break;
-      case "INPROGRESS":
-            mapChangesToState({ color:"#E3E109" });
-            break;
-      case "AWAITING":
-            mapChangesToState({ color:"#6114FD" });
-            break;
-      case "REVIEW":
-            mapChangesToState({ color:"#232d37" });
-            break;
-      case "ESCALATED":
-            mapChangesToState({ color:"#E30928" });
-            break;
-      case "CLOSED":
-            mapChangesToState({ color:"#0AFD5E" });
-            break;
-      case "REOPENED":
-            mapChangesToState({ color:"#232d37" });
-            break;
-      case "RESOLVED":
-            mapChangesToState({ color:"#98FF00" });
-            break;
-      case "AWAITINGVENDOR":
-            mapChangesToState({ color:"#354255" });
-            break;
-      case "AWAITINGUSER":
-        mapChangesToState({ color:"#354255" });
-        break;
-
-                     
-      default:
-        break;
-    }
-  }
   const { ticketListFailure, ticketListLoading } = props.ticketList;
   return (
     <>
@@ -140,8 +95,8 @@ const TicketListingByStatusPage = (props) => {
      
         <styled.heading>
        
-          {capitalizeFirstLetter(props.selectedKey)} Tickets  <span>
-          <styled.countbubble style={{"background": `${state.color}`}}> {props.ticketList.ticketcount}</styled.countbubble>
+          {capitalizeFirstLetter(props.selectedKey)} Tickets&nbsp;<span>
+          <styled.countbubble style={{"background": `${props.color}`}}> {props.ticketList.ticketcount}</styled.countbubble>
         </span>
           
         </styled.heading>
