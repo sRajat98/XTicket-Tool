@@ -9,9 +9,9 @@ function Filterform (props){
     const dispatch = useDispatch();
     const [state, setState] = useState({
             currentPageNumber: 1,
-            classificationid:0,
-            assignedToEmailId:""
     });
+    const [classificationid,setclassificationid]=useState("");
+    const [assignedToEmailId,setassignedToEmailId]=useState("")
     const mapChangesToState = (value) => {
     setState({ ...state, ...value });
     };
@@ -24,10 +24,12 @@ function Filterform (props){
        
        switch (name) {
          case "Classification":
-          mapChangesToState({ classificationid: value })
+           setclassificationid(value)
+           
            break;
         case "Assignedto":
-          mapChangesToState({ assignedToEmailId: value })
+          setassignedToEmailId(value)
+          
           break;
        
          default:
@@ -38,8 +40,8 @@ function Filterform (props){
     /*******On click of the Apply Button*****/
     function OnclickHandleSubmit(){
       const requestParams = {
-      classificationId:state.classificationid,
-      assignedToEmailId:state.assignedToEmailId,
+      classificationId:classificationid,
+      assignedToEmailId:assignedToEmailId,
       page: state.currentPageNumber - 1,
       limit: 15,
       };
@@ -50,7 +52,9 @@ function Filterform (props){
     }
     /******On Reset Button******/
     function OnclickHandleReset(){
-        
+      
+        setclassificationid("");
+        setassignedToEmailId("");
         const requestParams = {
         classificationId:0,
         assignedToEmailId:"",
