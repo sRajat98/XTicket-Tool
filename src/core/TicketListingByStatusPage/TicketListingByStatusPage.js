@@ -27,10 +27,10 @@ const TicketListingByStatusPage = (props) => {
     isPreviewVisible: false,
     currentSelectedTicket: {},
     currentPageNumber: 1,
-   
+
   });
   const mapChangesToState = (value) => {
-       setState({ ...state, ...value });
+    setState({ ...state, ...value });
   };
 
   const handleTicketClick = (currentSelectedTicket) => {
@@ -55,7 +55,7 @@ const TicketListingByStatusPage = (props) => {
     );
   };
   useEffect(() => {
-    
+
     const requestParams = {
       page: state.currentPageNumber - 1,
       limit: 15,
@@ -67,7 +67,7 @@ const TicketListingByStatusPage = (props) => {
         actionCreators.getTicketByStatus(requestParams, props.selectedKey)
       );
     });
-    
+
   }, [props.selectedKey, state.currentPageNumber]);
 
   useEffect(() => {
@@ -85,36 +85,36 @@ const TicketListingByStatusPage = (props) => {
       );
       mapChangesToState({ allAdminData });
     }
-    
+
   }, [props.common.allAdminData]);
 
   const { ticketListFailure, ticketListLoading } = props.ticketList;
   return (
     <>
       <styled.header>
-     
+
         <styled.heading>
-       
+
           {capitalizeFirstLetter(props.selectedKey)} Tickets&nbsp;<span>
-          <styled.countbubble style={{"background": `${props.color}`}}> {props.ticketList.ticketcount}</styled.countbubble>
-        </span>
-          
+            <styled.countbubble style={{ "background": `${props.color}` }}> {props.ticketList.ticketcount}</styled.countbubble>
+          </span>
+
         </styled.heading>
-       
-       
+
+
         <Pagination
           currentPage={state.currentPageNumber}
           maxPages={props.ticketList.totalPages}
           nextPage={increasePageCount}
           prevPage={decreasePageCount}
         />
-      
+
       </styled.header>
-      <div>
+      {/* <div>
       
       <Filters status={props.selectedKey}></Filters>
-      </div>
-      
+      </div> */}
+
       <styled.container>
         {ticketListLoading ? (
           <GlobalStyled.loaderContainer height={"65vh"}>

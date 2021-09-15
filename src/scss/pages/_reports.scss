@@ -58,6 +58,16 @@
         box-shadow: -4px 4px 8px #c1c1c196, 4px -4px 8px #ffffff;
         cursor: pointer;
       }
+      &-downloadbtn {
+        background-color: #354255;
+        font-size: 1.3rem;
+        padding: 0.6rem;
+        border-radius: 4px;
+        border: none;
+        color: #ffffff;
+        cursor: pointer;
+        display: flex;
+      }
     }
     &--progressBar {
       position: relative;
@@ -362,6 +372,15 @@
   background-color: rgba(151, 151, 151, 0.425);
   width: 100%;
   text-align: center;
+}
+
+.download-text {
+  margin-right: 20px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  width: 160px;
+  font-size: 1.2rem;
 }
 
 @keyframes fadeInOut {

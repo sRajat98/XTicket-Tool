@@ -1,15 +1,9 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useState, useRef, Component } from "react";
+import React, { Component } from "react";
 import {
   LineChart,
   Line,
-  PieChart,
-  Pie,
   Tooltip,
-  Sector,
-  Cell,
-  BarChart,
-  Bar,
   XAxis,
   YAxis,
   CartesianGrid,
@@ -20,12 +14,9 @@ import PieRating from "./PieRating";
 import Ratings from "./Ratings";
 import SLAMissedByStatus from "./SLAMissedByStatus";
 import AverageEfficiency from "./AverageEfficiency";
-import StatusBarChart from "./StatusBarChart";
 import ReportInfo from "../../images/ReportsInfo.svg";
 import MonthSelect from "./monthSelect";
 import YearSelect from "./YearSelect";
-import { convertDatetoReportFormat } from "../../utils/Constants";
-import closeWindow from "../../images/closewindow.png";
 import { allMonthsArray } from "../../utils/ReportPageUtils/ReportPageUtils";
 import Loader from "../../Components/Loader/Loader";
 
@@ -299,6 +290,17 @@ export default class Reports extends Component {
                     }
               }
             ></div> */}
+              <div
+                className="reports-container__bottom--header-heading"
+                onClick={() => this.updateState("DOWNLOAD_REPORTS")}
+                style={
+                  this.state.currentSelect === "DOWNLOAD_REPORTS"
+                    ? { borderBottom: "2px solid green", zIndex: 2 }
+                    : { borderBottom: "0px solid green", zIndex: 2 }
+                }
+              >
+                Download Reports
+              </div>
             </div>
             {this.state.currentSelect === "USER_SLA" ? (
               <button
@@ -342,41 +344,72 @@ export default class Reports extends Component {
                     {/* <Line type="monotone" dataKey="uv" stroke="#82ca9d" /> */}
                   </LineChart>
                 </ResponsiveContainer>
+              ) : this.state.currentSelect === "USER_SLA" && slaByDept ? (
+                <>
+                  <ResponsiveContainer aspect={5.1} width="100%">
+                    <LineChart
+                      width={500}
+                      height={300}
+                      data={slaByDept}
+                      margin={{
+                        top: 5,
+                        right: 30,
+                        left: 20,
+                        bottom: 5,
+                      }}
+                    >
+                      <CartesianGrid strokeDasharray="3 3" />
+                      <XAxis dataKey="empName" />
+                      <YAxis />
+                      <Tooltip />
+                      <Legend />
+                      <Line
+                        type="monotone"
+                        dataKey="resolved"
+                        stroke="#8884d8"
+                        activeDot={{ r: 8 }}
+                      />
+                      <Line type="monotone" dataKey="missed" stroke="#82ca9d" />
+                    </LineChart>
+                  </ResponsiveContainer>
+                </>
               ) : (
-                slaByDept && (
-                  <>
-                    <ResponsiveContainer aspect={5.1} width="100%">
-                      <LineChart
-                        width={500}
-                        height={300}
-                        data={slaByDept}
-                        margin={{
-                          top: 5,
-                          right: 30,
-                          left: 20,
-                          bottom: 5,
-                        }}
-                      >
-                        <CartesianGrid strokeDasharray="3 3" />
-                        <XAxis dataKey="empName" />
-                        <YAxis />
-                        <Tooltip />
-                        <Legend />
-                        <Line
-                          type="monotone"
-                          dataKey="resolved"
-                          stroke="#8884d8"
-                          activeDot={{ r: 8 }}
-                        />
-                        <Line
-                          type="monotone"
-                          dataKey="missed"
-                          stroke="#82ca9d"
-                        />
-                      </LineChart>
-                    </ResponsiveContainer>
-                  </>
-                )
+                <>
+                  <ResponsiveContainer aspect={5.1} width="100%">
+                    <div style={{ height: "261px" }}>
+                      <div style={{ display: "flex", marginBottom: "10px" }}>
+                        <div className="download-text">SLA Status Report:</div>
+                        <div>
+                          <button
+                            className="reports-container__top--report-downloadbtn"
+                            onClick={() =>
+                              this.props.downloadTickets("DownloadAlltickets")
+                            }
+                          >
+                            Download
+                          </button>
+                        </div>
+                      </div>
+                      <div style={{ display: "flex", marginBottom: "10px" }}>
+                        <div className="download-text">
+                          Missed Ticket Report:
+                        </div>
+                        <div>
+                          <button
+                            className="reports-container__top--report-downloadbtn"
+                            onClick={() =>
+                              this.props.downloadTickets(
+                                "DownloadMissedtickets"
+                              )
+                            }
+                          >
+                            Download
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </ResponsiveContainer>
+                </>
               )
             }
           </div>

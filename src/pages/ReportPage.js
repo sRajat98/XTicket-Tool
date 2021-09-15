@@ -25,6 +25,7 @@ import { convertDatetoReportFormat } from "../utils/Constants";
 import * as XenieAPI from "../utils/ReportPageAPI";
 import { saveAs } from "file-saver";
 import Reports from "../Views/Reports/Reports.jsx";
+import { DownloadLoader } from './../Components/DownloadLoader/DownloadLoader';
 var FileSaver = require("file-saver");
 const base64 = require("base64topdf");
 
@@ -76,6 +77,7 @@ class ReportPage extends Component {
       statusByDate: [],
       view: "ticketStatus",
       currentDate: {},
+      isLoading: false,
     };
   }
 
@@ -325,22 +327,22 @@ class ReportPage extends Component {
   downloadTickets = (value) => {
     switch (value) {
       case "DownloadAlltickets":
+        this.setState({ isLoading: true });
         fetch.getExcel({
           url: constants.SERVICE_URLS.DOWNLOAD_ALL_TICKETS,
           responseType: "blob",
           callbackHandler: (response) => {
+            this.setState({ isLoading: false });
             const {
               message,
               payload: { result },
             } = response;
-            // var filename=this.extractFileName(response.headers['content-disposition']);
-            // console.log("File name",filename);
             const url = window.URL.createObjectURL(
               new Blob([response.payload])
             );
             const link = document.createElement("a");
             link.href = url;
-            link.setAttribute("download", "AllTicketsHistory.xlsx");
+            link.setAttribute("download", "AllSLATicketsHistory.xlsx");
             document.body.appendChild(link);
             link.click();
             link.remove();
@@ -351,16 +353,16 @@ class ReportPage extends Component {
         break;
 
       case "DownloadMissedtickets":
+        this.setState({ isLoading: true });
         fetch.getExcel({
           url: constants.SERVICE_URLS.DOWNLOAD_MISSED_TICKETS,
           responseType: "blob",
           callbackHandler: (response) => {
+            this.setState({ isLoading: false });
             const {
               message,
               payload: { result },
             } = response;
-            // var filename=this.extractFileName(response.headers['content-disposition']);
-            // console.log("File name",filename);
             const url = window.URL.createObjectURL(
               new Blob([response.payload])
             );
@@ -375,6 +377,7 @@ class ReportPage extends Component {
         });
         break;
       default:
+        this.setState({ isLoading: false });
         return;
     }
   };
@@ -403,6 +406,11 @@ class ReportPage extends Component {
     }
     return (
       <>
+        {this.state.isLoading ? (
+          <>
+            <DownloadLoader />
+          </>
+        ) : null}
         <Reports
           SLAPie={this.state.achieved_vs_missed}
           ratings={this.state.rating}
@@ -413,6 +421,7 @@ class ReportPage extends Component {
           slaByDept={this.state.slaByDept}
           currentDate={this.state.currentDate}
           handleDateSubmit={this.handleDateSubmit}
+          downloadTickets={(value) => this.downloadTickets(value)}
         />
         {/* <div class="d-flex mt-3 justify-content-center">
                     <div class="d-flex flex-column pointermouse" onClick={()=>this.downloadTickets('DownloadAlltickets')}>

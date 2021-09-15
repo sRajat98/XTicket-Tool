@@ -86,7 +86,7 @@ const PieRating = ({ SLAPie }) => {
   };
 
   return SLAPie ? (
-    <PieChart width={400} height={400} margin={-30}>
+    <PieChart width={371} height={194} margin={-30}>
       <Pie
         activeIndex={activeIndex}
         activeShape={renderActiveShape}

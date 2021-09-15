@@ -1,0 +1,25 @@
+.loaderContainer {
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  background-color: #00000045;
+  z-index: 1150;
+}
+
+.loaderIcon {
+  height: 72px !important;
+  width: 72px !important;
+  position: absolute;
+  top: calc(50% - 36px);
+  left: calc(50% - 36px);
+}
+
+.loadertext {
+  position: absolute;
+  top: calc(50% - -38px);
+  left: calc(50% - 46px);
+  color: black;
+  font-size: 1.3rem;
+}

@@ -75,11 +75,11 @@ export const pageTracker = styled.p`
   color: ${colors.colorLightGrey};
   margin-left: auto;
 `;
-export const countbubble= styled.div`
-  width: 50px;
+export const countbubble = styled.div`
+  min-width: 50px;
   height: 50px;
   border-radius: 50%;
-  font-size: 14px;
+  font-size: 2rem;
   font-weight: 600;
   display: inline-flex;
   flex-direction: column;
@@ -89,8 +89,7 @@ export const countbubble= styled.div`
   top: 36px;
   color: white;
   animation: pulse 5s infinite;
-
+  padding: 5px;
 
 `;
 
-                      
