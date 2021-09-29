@@ -324,7 +324,7 @@ class ReportPage extends Component {
     }
     return filename;
   };
-  downloadTickets = (value) => {
+  downloadTickets = (value, startDate = '', endDate = '') => {
     switch (value) {
       case "DownloadAlltickets":
         this.setState({ isLoading: true });
@@ -369,6 +369,30 @@ class ReportPage extends Component {
             const link = document.createElement("a");
             link.href = url;
             link.setAttribute("download", "MissedTicketsHistory.xlsx");
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+            window.URL.revokeObjectURL(url);
+          },
+        });
+        break;
+      case "MonthlyAllStatusTickets":
+        this.setState({ isLoading: true });
+        fetch.getExcel({
+          url: `${constants.SERVICE_URLS.DOWNLOAD_MONTHLY_ALL_STATUS_TICKETS}?startDate=${startDate}&endDate=${endDate}`,
+          responseType: "blob",
+          callbackHandler: (response) => {
+            this.setState({ isLoading: false });
+            const {
+              message,
+              payload: { result },
+            } = response;
+            const url = window.URL.createObjectURL(
+              new Blob([response.payload])
+            );
+            const link = document.createElement("a");
+            link.href = url;
+            link.setAttribute("download", "AllStatusTicketsHistory.xlsx");
             document.body.appendChild(link);
             link.click();
             link.remove();
@@ -421,7 +445,7 @@ class ReportPage extends Component {
           slaByDept={this.state.slaByDept}
           currentDate={this.state.currentDate}
           handleDateSubmit={this.handleDateSubmit}
-          downloadTickets={(value) => this.downloadTickets(value)}
+          downloadTickets={(value, startDate, endDate) => this.downloadTickets(value, startDate, endDate)}
         />
         {/* <div class="d-flex mt-3 justify-content-center">
                     <div class="d-flex flex-column pointermouse" onClick={()=>this.downloadTickets('DownloadAlltickets')}>

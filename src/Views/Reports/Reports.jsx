@@ -34,6 +34,8 @@ export default class Reports extends Component {
         achievedVsMissed: { date: null, isDateVisible: false },
         userSLA: { date: null, isDateVisible: false },
       },
+      startDate: "",
+      endDate: "",
     };
   }
 
@@ -73,6 +75,20 @@ export default class Reports extends Component {
 
   setDates = (value) => {
     this.setState(value);
+  };
+
+  addDays = (sDate, days) => {
+    let result = new Date(sDate);
+    result.setDate(result.getDate() + days);
+    const actualDate = new Date(result);
+    const year = actualDate.getFullYear();
+    const date = ("0" + actualDate.getDate()).slice(-2);
+    const month = ("0" + (actualDate.getMonth() + 1)).slice(-2);
+    return `${year}-${month}-${date}`;
+  };
+
+  clearDate = () => {
+    this.setState({ startDate: "", endDate: "" });
   };
 
   render() {
@@ -376,35 +392,98 @@ export default class Reports extends Component {
               ) : (
                 <>
                   <ResponsiveContainer aspect={5.1} width="100%">
-                    <div style={{ height: "261px" }}>
-                      <div style={{ display: "flex", marginBottom: "10px" }}>
-                        <div className="download-text">SLA Status Report:</div>
-                        <div>
-                          <button
-                            className="reports-container__top--report-downloadbtn"
-                            onClick={() =>
-                              this.props.downloadTickets("DownloadAlltickets")
-                            }
-                          >
-                            Download
-                          </button>
+                    <div style={{ height: "261px", display: "flex" }}>
+                      <div style={{ marginRight: "60px" }}>
+                        <div style={{ display: "flex", marginBottom: "10px" }}>
+                          <fieldset className="field-set">
+                            <legend className="field-legend">
+                              Monthly All Status Report
+                            </legend>
+                            <div style={{ marginBottom: "20px" }}>
+                              <label className="form-label">Start Date: </label>
+                              <input
+                                className="form-control"
+                                type="date"
+                                value={this.state.startDate}
+                                onChange={(e) =>
+                                  this.setState({ startDate: e.target.value })
+                                }
+                              />
+                            </div>
+                            {this.state.startDate && (
+                              <div style={{ marginBottom: "20px" }}>
+                                <label className="form-label">End Date: </label>
+                                <input
+                                  className="form-control"
+                                  type="date"
+                                  value={this.state.endDate}
+                                  min={this.state.startDate}
+                                  max={this.addDays(this.state.startDate, 90)}
+                                  onChange={(e) =>
+                                    this.setState({ endDate: e.target.value })
+                                  }
+                                />
+                              </div>
+                            )}
+                            <div style={{ display: "flex" }}>
+                              <button
+                                className="reports-container__top--report-clearbtn"
+                                onClick={() => this.clearDate()}
+                              >
+                                Clear
+                              </button>
+                              <button
+                                disabled={
+                                  this.state.startDate === "" ||
+                                  this.state.endDate === ""
+                                }
+                                className="reports-container__top--report-downloadbtn"
+                                onClick={() =>
+                                  this.props.downloadTickets(
+                                    "MonthlyAllStatusTickets",
+                                    this.state.startDate,
+                                    this.state.endDate
+                                  )
+                                }
+                              >
+                                Download
+                              </button>
+                            </div>
+                          </fieldset>
                         </div>
                       </div>
-                      <div style={{ display: "flex", marginBottom: "10px" }}>
-                        <div className="download-text">
-                          Missed Ticket Report:
+                      <div>
+                        <div style={{ display: "flex", marginBottom: "10px" }}>
+                          <div className="download-text">
+                            SLA Status Report:
+                          </div>
+                          <div>
+                            <button
+                              className="reports-container__top--report-downloadbtn"
+                              onClick={() =>
+                                this.props.downloadTickets("DownloadAlltickets")
+                              }
+                            >
+                              Download
+                            </button>
+                          </div>
                         </div>
-                        <div>
-                          <button
-                            className="reports-container__top--report-downloadbtn"
-                            onClick={() =>
-                              this.props.downloadTickets(
-                                "DownloadMissedtickets"
-                              )
-                            }
-                          >
-                            Download
-                          </button>
+                        <div style={{ display: "flex", marginBottom: "10px" }}>
+                          <div className="download-text">
+                            Missed Ticket Report:
+                          </div>
+                          <div>
+                            <button
+                              className="reports-container__top--report-downloadbtn"
+                              onClick={() =>
+                                this.props.downloadTickets(
+                                  "DownloadMissedtickets"
+                                )
+                              }
+                            >
+                              Download
+                            </button>
+                          </div>
                         </div>
                       </div>
                     </div>

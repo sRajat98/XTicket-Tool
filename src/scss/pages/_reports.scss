@@ -67,6 +67,21 @@
         color: #ffffff;
         cursor: pointer;
         display: flex;
+        &:disabled {
+          background-color: #98a4b6;
+          cursor: not-allowed;
+        }
+      }
+      &-clearbtn {
+        background-color: #2b2e32;
+        font-size: 1.3rem;
+        padding: 0.6rem;
+        border-radius: 4px;
+        border: none;
+        color: #ffffff;
+        cursor: pointer;
+        display: flex;
+        margin-right: 10px;
       }
     }
     &--progressBar {
@@ -380,6 +395,17 @@
   display: flex;
   align-items: center;
   width: 160px;
+  font-size: 1.2rem;
+}
+
+.field-set {
+  padding: 20px 80px 20px 20px;
+  margin: 0;
+  border: 1px solid #354255;
+  border-radius: 10px;
+}
+
+.field-legend {
   font-size: 1.2rem;
 }
 

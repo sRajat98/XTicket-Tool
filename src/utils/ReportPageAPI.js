@@ -31,7 +31,6 @@ export const getMissedvsAchieved = (currentDate, setValues) => {
       } = response;
 
       if (constants.SUCCESS === message) {
-        console.log("successss");
         const achieved_vs_missed = Object.keys(response.payload.result).map(
           (key, index) => {
             return {
