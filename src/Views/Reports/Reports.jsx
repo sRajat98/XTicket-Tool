@@ -485,6 +485,23 @@ export default class Reports extends Component {
                             </button>
                           </div>
                         </div>
+                        <div style={{ display: "flex", marginBottom: "10px" }}>
+                          <div className="download-text">
+                            Pending Ticket Report:
+                          </div>
+                          <div>
+                            <button
+                              className="reports-container__top--report-downloadbtn"
+                              onClick={() =>
+                                this.props.downloadTickets(
+                                  "DownloadAllPendingtickets"
+                                )
+                              }
+                            >
+                              Download
+                            </button>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </ResponsiveContainer>

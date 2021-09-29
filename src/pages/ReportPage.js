@@ -400,6 +400,31 @@ class ReportPage extends Component {
           },
         });
         break;
+
+      case "DownloadAllPendingtickets":
+        this.setState({ isLoading: true });
+        fetch.getExcel({
+          url: constants.SERVICE_URLS.DOWNLOAD_ALL_PENDING_TICKETS,
+          responseType: "blob",
+          callbackHandler: (response) => {
+            this.setState({ isLoading: false });
+            const {
+              message,
+              payload: { result },
+            } = response;
+            const url = window.URL.createObjectURL(
+              new Blob([response.payload])
+            );
+            const link = document.createElement("a");
+            link.href = url;
+            link.setAttribute("download", "AllPendingTicketHistory.xlsx");
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+            window.URL.revokeObjectURL(url);
+          },
+        });
+        break;
       default:
         this.setState({ isLoading: false });
         return;
