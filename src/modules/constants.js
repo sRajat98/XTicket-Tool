@@ -1,5 +1,5 @@
-const API_HOST_PATH = "https://xenie.xebia.in";
-//const API_HOST_PATH = "https://xdesk.herokuapp.com";
+//const API_HOST_PATH = "https://xenie.xebia.in";
+const API_HOST_PATH = "https://xdesk.herokuapp.com";
 // const API_HOST_PATH = "http://168.63.250.105";
 
 export const constants = {
@@ -45,6 +45,7 @@ export const constants = {
     MONTHLY_FLITER: `${API_HOST_PATH}/ticket-tool/v1/tickets/user/status/monthly/`,
     DOWNLOAD_ALL_TICKETS: `${API_HOST_PATH}/ticket-tool/v1/tickets/user/missed/allslas/file`,
     DOWNLOAD_MISSED_TICKETS: `${API_HOST_PATH}/ticket-tool/v1/tickets/user/missed/department/file`,
+    DOWNLOAD_MONTHLY_ALL_STATUS_TICKETS: `${API_HOST_PATH}/ticket-tool/v1/tickets/user/allcreated/file`,
   },
   // /v1/tickets/missed/byuser/status
   NO_DATA_FOUND: "No results found...",

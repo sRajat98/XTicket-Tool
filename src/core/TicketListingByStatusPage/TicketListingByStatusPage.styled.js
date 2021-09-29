@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { motion } from "framer-motion";
 import { colors } from "../../app/themes/variables";
 
 export const container = styled.div`
@@ -8,7 +7,7 @@ export const container = styled.div`
   position: relative;
   padding: 2.5rem;
 
-  height: 82vh;
+  height: 75vh;
   overflow: auto;
   scroll-behavior: smooth;
 
@@ -90,6 +89,30 @@ export const countbubble = styled.div`
   color: white;
   animation: pulse 5s infinite;
   padding: 5px;
+`;
 
+export const searchUserBtn = styled.button`
+  background-color: ${colors.xenieBlue};
+  width: 10rem;
+  font-size: 1.3rem;
+  color: ${colors.colorWhite};
+`;
+
+export const input = styled.input`
+  height: 4rem;
+  font-size: 1.4rem;
+  border-radius: 4px;
+`;
+
+export const clearBtn = styled.button`
+  background-color: #2b2e32;
+  font-size: 1.3rem;
+  padding: 1rem 2rem;
+  border-radius: 4px;
+  border: none;
+  color: #ffffff;
+  cursor: pointer;
+  display: flex;
+  margin-right: 10px;
 `;
 

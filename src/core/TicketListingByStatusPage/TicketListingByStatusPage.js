@@ -27,8 +27,9 @@ const TicketListingByStatusPage = (props) => {
     isPreviewVisible: false,
     currentSelectedTicket: {},
     currentPageNumber: 1,
-
+    ticketID: '',
   });
+
   const mapChangesToState = (value) => {
     setState({ ...state, ...value });
   };
@@ -55,7 +56,7 @@ const TicketListingByStatusPage = (props) => {
     );
   };
   useEffect(() => {
-
+    mapChangesToState({ ticketID: "" });
     const requestParams = {
       page: state.currentPageNumber - 1,
       limit: 15,
@@ -88,32 +89,90 @@ const TicketListingByStatusPage = (props) => {
 
   }, [props.common.allAdminData]);
 
+  const handleInputValue = (e) => {
+    mapChangesToState({ ticketID: e.target.value });
+  };
+
+  const clearSearch = () => {
+    if (state.ticketID !== "") {
+      mapChangesToState({ ticketID: "" });
+      const requestParams = {
+        page: state.currentPageNumber - 1,
+        limit: 15,
+      };
+      batch(() => {
+        dispatch(actionCreators.resetGetTicketByStatus());
+        dispatch(actionCreators.startGetTicketByStatusLoader());
+        dispatch(
+          actionCreators.getTicketByStatus(requestParams, props.selectedKey)
+        );
+      });
+    }
+  };
+
+  const onSearchClick = () => {
+    if (state.ticketID !== "") {
+      const requestParams = {
+        ticketId: state.ticketID
+      };
+      batch(() => {
+        dispatch(actionCreators.resetGetTicketByStatus());
+        dispatch(actionCreators.startGetTicketByStatusLoader());
+        dispatch(
+          actionCreators.getTicketByStatusAndTicketID(requestParams, props.selectedKey)
+        );
+      });
+    }
+  };
+
   const { ticketListFailure, ticketListLoading } = props.ticketList;
   return (
     <>
       <styled.header>
-
         <styled.heading>
-
           {capitalizeFirstLetter(props.selectedKey)} Tickets&nbsp;<span>
             <styled.countbubble style={{ "background": `${props.color}` }}> {props.ticketList.ticketcount}</styled.countbubble>
           </span>
-
         </styled.heading>
-
-
         <Pagination
           currentPage={state.currentPageNumber}
           maxPages={props.ticketList.totalPages}
           nextPage={increasePageCount}
           prevPage={decreasePageCount}
         />
-
       </styled.header>
-      {/* <div>
-      
+
+      {/* <div>      
       <Filters status={props.selectedKey}></Filters>
       </div> */}
+
+      <div className="form-group">
+        <div className="input-group col-lg-5 col-md-9 col-12 mb-3 ml-3 mt-3">
+          <styled.input
+            type="number"
+            className="form-control"
+            placeholder="Enter Ticked ID"
+            value={state.ticketID}
+            onChange={handleInputValue}
+            pattern="[0-9]"
+          />
+          <div className="input-group-append">
+            <styled.searchUserBtn
+              className="btn btn-outline-secondary"
+              type="button" onClick={onSearchClick}
+            >
+              Search
+            </styled.searchUserBtn>
+          </div>
+          <div style={{ marginLeft: '10px' }}>
+            <styled.clearBtn
+              type="button" onClick={clearSearch}
+            >
+              Clear
+            </styled.clearBtn>
+          </div>
+        </div>
+      </div>
 
       <styled.container>
         {ticketListLoading ? (
@@ -167,7 +226,7 @@ const mapStatetoProps = (state) => {
   return {
     common: state.common,
     ticketList: state.ticketList
-
   };
 };
+
 export default connect(mapStatetoProps)(React.memo(TicketListingByStatusPage));
