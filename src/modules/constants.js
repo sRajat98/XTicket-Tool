@@ -47,6 +47,7 @@ export const constants = {
     DOWNLOAD_MISSED_TICKETS: `${API_HOST_PATH}/ticket-tool/v1/tickets/user/missed/department/file`,
     DOWNLOAD_MONTHLY_ALL_STATUS_TICKETS: `${API_HOST_PATH}/ticket-tool/v1/tickets/user/allcreated/file`,
     DOWNLOAD_ALL_PENDING_TICKETS: `${API_HOST_PATH}/ticket-tool/v1/tickets/user/allNotClosedOrResoloved/file`,
+    DOWNLOAD_SURVEY_REPORT: `${API_HOST_PATH}/ticket-tool/v1/tickets/user/ticketsFeedbackRatings/file`,
   },
   // /v1/tickets/missed/byuser/status
   NO_DATA_FOUND: "No results found...",

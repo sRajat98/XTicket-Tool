@@ -324,6 +324,7 @@ class ReportPage extends Component {
     }
     return filename;
   };
+
   downloadTickets = (value, startDate = '', endDate = '') => {
     switch (value) {
       case "DownloadAlltickets":
@@ -349,7 +350,6 @@ class ReportPage extends Component {
             window.URL.revokeObjectURL(url);
           },
         });
-
         break;
 
       case "DownloadMissedtickets":
@@ -376,6 +376,7 @@ class ReportPage extends Component {
           },
         });
         break;
+
       case "MonthlyAllStatusTickets":
         this.setState({ isLoading: true });
         fetch.getExcel({
@@ -425,6 +426,32 @@ class ReportPage extends Component {
           },
         });
         break;
+
+      case "SurveysReport":
+        this.setState({ isLoading: true });
+        fetch.getExcel({
+          url: `${constants.SERVICE_URLS.DOWNLOAD_SURVEY_REPORT}?startDate=${startDate}&endDate=${endDate}`,
+          responseType: "blob",
+          callbackHandler: (response) => {
+            this.setState({ isLoading: false });
+            const {
+              message,
+              payload: { result },
+            } = response;
+            const url = window.URL.createObjectURL(
+              new Blob([response.payload])
+            );
+            const link = document.createElement("a");
+            link.href = url;
+            link.setAttribute("download", "SurveysReport.xlsx");
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+            window.URL.revokeObjectURL(url);
+          },
+        });
+        break;
+
       default:
         this.setState({ isLoading: false });
         return;

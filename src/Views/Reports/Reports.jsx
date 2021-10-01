@@ -36,6 +36,8 @@ export default class Reports extends Component {
       },
       startDate: "",
       endDate: "",
+      sDate: "",
+      eDate: "",
     };
   }
 
@@ -89,6 +91,10 @@ export default class Reports extends Component {
 
   clearDate = () => {
     this.setState({ startDate: "", endDate: "" });
+  };
+
+  clearReportDate = () => {
+    this.setState({ sDate: "", eDate: "" });
   };
 
   render() {
@@ -501,6 +507,65 @@ export default class Reports extends Component {
                               Download
                             </button>
                           </div>
+                        </div>
+                      </div>
+                      <div style={{ marginLeft: "60px" }}>
+                        <div style={{ display: "flex", marginBottom: "10px" }}>
+                          <fieldset className="field-set">
+                            <legend className="field-legend">
+                              Surveys Report
+                            </legend>
+                            <div style={{ marginBottom: "20px" }}>
+                              <label className="form-label">Start Date: </label>
+                              <input
+                                className="form-control"
+                                type="date"
+                                value={this.state.sDate}
+                                onChange={(e) =>
+                                  this.setState({ sDate: e.target.value })
+                                }
+                              />
+                            </div>
+                            {this.state.sDate && (
+                              <div style={{ marginBottom: "20px" }}>
+                                <label className="form-label">End Date: </label>
+                                <input
+                                  className="form-control"
+                                  type="date"
+                                  value={this.state.eDate}
+                                  min={this.state.sDate}
+                                  max={this.addDays(this.state.sDate, 7)}
+                                  onChange={(e) =>
+                                    this.setState({ eDate: e.target.value })
+                                  }
+                                />
+                              </div>
+                            )}
+                            <div style={{ display: "flex" }}>
+                              <button
+                                className="reports-container__top--report-clearbtn"
+                                onClick={() => this.clearReportDate()}
+                              >
+                                Clear
+                              </button>
+                              <button
+                                disabled={
+                                  this.state.sDate === "" ||
+                                  this.state.eDate === ""
+                                }
+                                className="reports-container__top--report-downloadbtn"
+                                onClick={() =>
+                                  this.props.downloadTickets(
+                                    "SurveysReport",
+                                    this.state.sDate,
+                                    this.state.eDate
+                                  )
+                                }
+                              >
+                                Download
+                              </button>
+                            </div>
+                          </fieldset>
                         </div>
                       </div>
                     </div>
