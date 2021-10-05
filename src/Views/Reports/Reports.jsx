@@ -63,7 +63,7 @@ export default class Reports extends Component {
         const date = {
           year: this.state.selectedYear,
           month:
-            this.state.selectedMonth < 9
+            this.state.selectedMonth <= 9
               ? `0${this.state.selectedMonth}`
               : this.state.selectedMonth,
         };
@@ -459,7 +459,7 @@ export default class Reports extends Component {
                         </div>
                       </div>
                       <div>
-                        <div style={{ display: "flex", marginBottom: "10px" }}>
+                        {/* <div style={{ display: "flex", marginBottom: "10px" }}>
                           <div className="download-text">
                             SLA Status Report:
                           </div>
@@ -473,7 +473,7 @@ export default class Reports extends Component {
                               Download
                             </button>
                           </div>
-                        </div>
+                        </div> */}
                         <div style={{ display: "flex", marginBottom: "10px" }}>
                           <div className="download-text">
                             Missed Ticket Report:

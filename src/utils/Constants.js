@@ -4,7 +4,7 @@ import { colors } from "app/themes/variables";
 export const convertDatetoReportFormat = (dateObject) => {
   const formattedDate = {
     day: dateObject.getDate(),
-    month: `0${dateObject.getMonth() + 1}`,
+    month: ('0' + `${dateObject.getMonth() + 1}`).slice(-2),
     year: dateObject.getFullYear(),
   };
   return formattedDate;
