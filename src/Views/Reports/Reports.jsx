@@ -424,7 +424,7 @@ export default class Reports extends Component {
                                   type="date"
                                   value={this.state.endDate}
                                   min={this.state.startDate}
-                                  max={this.addDays(this.state.startDate, 90)}
+                                  max={this.addDays(this.state.startDate, 30)}
                                   onChange={(e) =>
                                     this.setState({ endDate: e.target.value })
                                   }
