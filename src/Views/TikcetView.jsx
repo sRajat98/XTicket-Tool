@@ -118,18 +118,24 @@ const TicketView = (payload) => {
             <div className="change-text-wrapper">
               Ticket Assigned to: {status.assignedTo} &nbsp;
               <span className="status-time-wrapper"> | {finalDate}</span>
+              {status.assignedToReason ? (
+                <img
+                  style={{ marginLeft: "20px" }}
+                  src={info}
+                  height="25px"
+                  title={
+                    status.assignedToReason === "Default Assignment"
+                      ? "Default Assignment"
+                      : status.assignedToReason.split(":")[1]
+                  }
+                />
+              ) : null}
             </div>
-            {status.assignedToReason ? (
-              <img
-                src={info}
-                height="25px"
-                title={
-                  status.assignedToReason === "Default Assignment"
-                    ? "Default Assignment"
-                    : status.assignedToReason.split(":")[1]
-                }
-              />
-            ) : null}
+            <div className="comment-reason">
+              {status.assignedToReason === "Default Assignment"
+                ? "Default Assignment"
+                : status.assignedToReason.split(":")[1]}
+            </div>
           </React.Fragment>
         );
       case "INPROGRESS":
@@ -139,6 +145,11 @@ const TicketView = (payload) => {
             <div className="change-text-wrapper">
               {status.assignedTo} is working on resolution of your ticket &nbsp;
               <span className="status-time-wrapper"> | {finalDate}</span>
+            </div>
+            <div className="comment-reason">
+              {status.assignedToReason === "Default Assignment"
+                ? "Default Assignment"
+                : status.assignedToReason.split(":")[1]}
             </div>
           </React.Fragment>
         );
@@ -191,6 +202,11 @@ const TicketView = (payload) => {
               Ticket Re-opened &nbsp;
               <span className="status-time-wrapper"> | {finalDate}</span>
             </div>
+            <div className="comment-reason">
+              {status.assignedToReason === "Default Assignment"
+                ? "Default Assignment"
+                : status.assignedToReason.split(":")[1]}
+            </div>
           </React.Fragment>
         );
       case "RESOLVED":
@@ -211,6 +227,7 @@ const TicketView = (payload) => {
               Ticket Awaiting for Vendor &nbsp;
               <span className="status-time-wrapper">| {finalDate}</span>
             </div>
+            <div className="comment-reason">{status.statusChangeReason}</div>
           </React.Fragment>
         );
       case "AWAITINGUSER":
@@ -221,6 +238,7 @@ const TicketView = (payload) => {
               Ticket Awaiting for User &nbsp;
               <span className="status-time-wrapper">| {finalDate}</span>
             </div>
+            <div className="comment-reason">{status.statusChangeReason}</div>
           </React.Fragment>
         );
       default:

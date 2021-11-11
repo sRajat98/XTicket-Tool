@@ -5,7 +5,7 @@ import { fetch } from "../modules/httpServices";
 import { constants } from "../modules/constants";
 import CommentModel from "../Views/addCommentModel";
 import axios from "axios";
-import FileSaver, { saveAs } from "file-saver";
+import StatusCommentModel from "../Views/statusCommentModel";
 
 class TicketDetails extends Component {
   constructor(props) {
@@ -28,6 +28,9 @@ class TicketDetails extends Component {
       comment: "",
       isLoading: false,
       statusChangeLoading: false,
+      showStatusModal: false,
+      statusComment: "",
+      awtStatusValue: "",
     };
   }
 
@@ -217,15 +220,29 @@ class TicketDetails extends Component {
       });
     });
   };
+
   toggleCommentModal = () => {
     this.setState((prevState) => ({
       showModal: !prevState.showModal,
       comment: "",
     }));
   };
+
+  toggleStatusCommentModal = () => {
+    this.setState((prevState) => ({
+      showStatusModal: !prevState.showStatusModal,
+      statusComment: "",
+    }));
+  };
+
   handleCommentChange = ({ target: { value } }) => {
     this.setState({ comment: value });
   };
+
+  handleStatusCommentChange = ({ target: { value } }) => {
+    this.setState({ statusComment: value });
+  };
+
   changeSelectValue = (selectValue, ticketStatus) => {
     this.toggleCommentModal();
     this.setState({
@@ -233,6 +250,7 @@ class TicketDetails extends Component {
       ticketStatus: ticketStatus,
     });
   };
+
   handleAddComment = () => {
     const { selectValue = null, ticketStatus = null } = this.state;
     if (
@@ -290,15 +308,14 @@ class TicketDetails extends Component {
       });
     }
   };
-  changeStatusValue = (statusValue) => {
-    const id = this.props.match.params.ticket_id;
 
+  handleAddStatusComment = () => {
+    const id = this.props.match.params.ticket_id;
     this.setState({ statusChangeLoading: true }, () => {
       fetch.put({
         url:
-          constants.SERVICE_URLS.TICKET_STATUS + id + "?status=" + statusValue,
+          constants.SERVICE_URLS.TICKET_STATUS + id + "?status=" + this.state.awtStatusValue + "&statusChangeReason=" + this.state.statusComment,
         callbackHandler: (response) => {
-          // window.location.reload();
           this.setState({ statusChangeLoading: false });
           fetch.get({
             url: constants.SERVICE_URLS.TICKET_DETAILING + "/" + id,
@@ -335,8 +352,65 @@ class TicketDetails extends Component {
           });
         },
       });
+      this.toggleStatusCommentModal();
     });
+  }
+
+  changeStatusValue = (statusValue) => {
+    if (statusValue === "AWAITINGVENDOR"
+      || statusValue === "AWAITINGUSER") {
+      this.toggleStatusCommentModal();
+      this.setState({ awtStatusValue: statusValue });
+    }
+    else {
+      const id = this.props.match.params.ticket_id;
+
+      this.setState({ statusChangeLoading: true }, () => {
+        fetch.put({
+          url:
+            constants.SERVICE_URLS.TICKET_STATUS + id + "?status=" + statusValue,
+          callbackHandler: (response) => {
+            // window.location.reload();
+            this.setState({ statusChangeLoading: false });
+            fetch.get({
+              url: constants.SERVICE_URLS.TICKET_DETAILING + "/" + id,
+              callbackHandler: (response) => {
+                const { status, message, payload } = response;
+                const _state = cloneDeep(this.state);
+
+                _state.isLoading = false;
+
+                if (status === constants.SUCCESS) {
+                  _state.message = "";
+                  _state.ticketData = payload.result.ticketDetails;
+                } else {
+                  _state.message = message;
+                }
+                this.setState({ ticketData: _state.ticketData });
+              },
+            });
+
+            fetch.get({
+              url: constants.SERVICE_URLS.TICKET_HISTORY + id,
+              callbackHandler: (response) => {
+                const { status, payload, message } = response;
+                const _state = cloneDeep(this.state);
+
+                if (status === constants.SUCCESS) {
+                  _state.message = "";
+                  _state.ticketJourney = payload.result.ticketJourneys;
+                } else {
+                  _state.message = message;
+                }
+                this.setState({ ticketJourney: _state.ticketJourney });
+              },
+            });
+          },
+        });
+      });
+    }
   };
+
   statusHandler = () => {
     const id = this.props.match.params.ticket_id;
     this.setState({ statusChangeLoading: true }, () => {
@@ -665,7 +739,7 @@ class TicketDetails extends Component {
   };
 
   render() {
-    const { showModal, comment } = this.state;
+    const { showModal, comment, showStatusModal, statusComment } = this.state;
     return (
       <>
         <CommentModel
@@ -675,6 +749,12 @@ class TicketDetails extends Component {
           comment={comment}
           handleAddComment={this.handleAddComment}
         />
+        <StatusCommentModel
+          showModal={showStatusModal}
+          comment={statusComment}
+          toggleModal={this.toggleStatusCommentModal}
+          handleChange={this.handleStatusCommentChange}
+          handleAddComment={this.handleAddStatusComment} />
         <TicketView
           {...this.state}
           toggleReplyDisplay={this.toggleReplyDisplay}
