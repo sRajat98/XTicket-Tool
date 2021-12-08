@@ -55,7 +55,7 @@ export const getAllAdminsInDept = (departmentId) => (dispatch) => {
 };
 
 export const getAllAdminUsers = () => (dispatch) => {
-  let currentUserEmail = window.sessionStorage.getItem("userEmail");
+  let currentUserEmail = window.localStorage.getItem("userEmail");
   XenieApi.get(
     `${exportUrl + configs.getUserDepartment}?email=${currentUserEmail}`
   ).then(
