@@ -29,6 +29,7 @@ const TicketListingPage = (props) => {
     dispatch(actionCreators.getAllStatus());
     dispatch(actionCreators.getAllAdminUsers());
     dispatch(actionCreators.getAllDepartments());
+    dispatch(actionCreators.getAllDomain());
   }, []);
 
   useEffect(() => {

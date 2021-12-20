@@ -6,6 +6,7 @@ import {
   updateDepartment,
   showLoader,
   cleanUpManageAccess,
+  updateDomain,
 } from "app/redux/actions/manageAccessActions";
 import Loader from "core/Loader/Loader";
 import * as styled from "./ManageAccess.styled";
@@ -42,15 +43,36 @@ function AddUser() {
       dispatch(searchUserAction(label, state.search));
     }
   };
+
   const addUser = () => {
-    dispatch(showLoader("addUser"));
-    dispatch(
-      assignDepttoUser(
-        manageAccessState.selectedUser.contactInfo.email,
-        manageAccessState.department
-      )
-    );
+    if (validateForm()) {
+      dispatch(showLoader("addUser"));
+      dispatch(
+        assignDepttoUser(
+          Object.keys(manageAccessState.selectedUser).length === 0 ? state.search : manageAccessState.selectedUser.contactInfo.email,
+          manageAccessState.department,
+          manageAccessState.domain
+        )
+      );
+    }
   };
+
+  const validateForm = () => {
+    let valid = true;
+    if (manageAccessState.selectedUser.name === '') {
+      valid = false;
+    }
+
+    if (manageAccessState.department === 0) {
+      valid = false;
+    }
+
+    if (manageAccessState.departmentName === 'IT' && manageAccessState.domain === 0) {
+      valid = false;
+    }
+    return valid;
+  }
+
   const changeDepartment = (e) => {
     let valid = false;
     if (
@@ -60,8 +82,13 @@ function AddUser() {
     )
       valid = true;
     mapChangesToState({ valid });
-    dispatch(updateDepartment(e.target.value));
+    dispatch(updateDepartment(e.target.value, e.nativeEvent.target[e.nativeEvent.target.selectedIndex].text));
   };
+
+  const changeDomain = (e) => {
+    dispatch(updateDomain(e.target.value));
+  }
+
   return (
     <>
       <div className="row">
@@ -71,7 +98,7 @@ function AddUser() {
               <styled.input
                 type="text"
                 className="form-control"
-                placeholder="Search User"
+                placeholder="Search User by Email"
                 value={state.search}
                 onChange={handleInputValue}
               />
@@ -107,13 +134,31 @@ function AddUser() {
               <option value="0">-- Select Department --</option>
               {commonState.departments && commonState.departments.length
                 ? commonState.departments.map((department) => (
-                    <option key={department.id} value={department.id}>
-                      {department.name}
-                    </option>
-                  ))
+                  <option key={department.name} value={department.id}>
+                    {department.name}
+                  </option>
+                ))
                 : null}
             </styled.select>
           </div>
+          {manageAccessState.departmentName !== '' && manageAccessState.departmentName === "IT" ?
+            (<div className="form-group">
+              <styled.label>Select Domain</styled.label>
+              <styled.select
+                className="form-control"
+                onChange={changeDomain}
+                value={manageAccessState.domain}
+              >
+                <option value="0">-- Select Domain --</option>
+                {commonState.domains && commonState.domains.length
+                  ? commonState.domains.map((domain) => (
+                    <option key={domain.id} value={domain.id}>
+                      {domain.profileName}
+                    </option>
+                  ))
+                  : null}
+              </styled.select>
+            </div>) : null}
           <div className="form-group">
             <styled.addBtn
               type="button"

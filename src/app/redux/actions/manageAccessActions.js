@@ -45,11 +45,10 @@ export const searchUserAction = (label, value) => (dispatch) => {
     );
 };
 
-export const assignDepttoUser = (emailId, departmentId) => (dispatch) => {
+export const assignDepttoUser = (emailId, departmentId, domainId) => (dispatch) => {
   XenieApi.post(
-    `${
-      exportUrl + configs.assignDepttoUser
-    }?emailId=${emailId}&departmentId=${departmentId}`
+    `${exportUrl + configs.assignDepttoUser
+    }?emailId=${emailId}&departmentId=${departmentId}&profileId=${domainId}`
   ).then(
     (response) => {
       dispatch({
@@ -96,9 +95,14 @@ export const cleanUpManageAccess = (label) => (dispatch) => {
   dispatch({ type: types.CLEAN_MANAGE_ACCESS, label });
 };
 
-export const updateDepartment = (department) => (dispatch) => {
-  dispatch({ type: types.UPDATE_DEPARTMENT, department });
+export const updateDepartment = (department, departmentName) => (dispatch) => {
+  dispatch({ type: types.UPDATE_DEPARTMENT, department, departmentName });
 };
+
+export const updateDomain = (domain) => (dispatch) => {
+  dispatch({ type: types.UPDATE_DOMAIN, domain });
+};
+
 export const updateRole = (role) => (dispatch) => {
   dispatch({ type: types.UPDATE_ROLE, role });
 };

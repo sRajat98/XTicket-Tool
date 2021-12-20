@@ -17,6 +17,7 @@ const configs = {
   getEmployeeTicketStatusCount: "dashboard/ticketStatusCounts",
   getEmployeeSla: "dashboard/missedResolvedCounts",
   getUserTickets: "dashboard/getAssignedTickets",
+  getAllDomain: "domainProfile",
 };
 
 export default configs;

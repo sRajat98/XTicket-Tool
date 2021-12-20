@@ -3,10 +3,14 @@ import * as types from "../actionTypes";
 const initalState = {
   selectedUser: {},
   department: 0,
+  domain: 0,
+  departmentName: '',
   getUsersFailure: false,
   loading: false,
   error: false,
   errorMessage: "",
+  success: '',
+  successMessage: '',
   editAccess: {
     currentRole: "",
     user: "",
@@ -34,11 +38,20 @@ const manageAccessReducer = (state = initalState, action) => {
       return {
         ...state,
         department: action.data.result.departmentId || 0,
+        domain: action.data.result.profileId || 0,
+        departmentName: action.data.result.departmentName || ''
       };
     case types.UPDATE_DEPARTMENT:
       return {
         ...state,
         department: action.department,
+        departmentName: action.departmentName,
+        domain: 0,
+      };
+    case types.UPDATE_DOMAIN:
+      return {
+        ...state,
+        domain: action.domain,
       };
     case types.SEARCH_USER_FAILURE:
       return {
@@ -50,6 +63,8 @@ const manageAccessReducer = (state = initalState, action) => {
       return {
         ...state,
         loading: false,
+        success: action.data.message,
+        successMessage: action.data.result,
       };
     case types.SHOW_LOADER:
       if (action.data.label == "editAccess") {
@@ -162,6 +177,10 @@ const manageAccessReducer = (state = initalState, action) => {
           success: false,
           department: 0,
           selectedUser: {},
+          domain: 0,
+          departmentName: '',
+          success: '',
+          successMessage: '',
         };
       } else {
         return {

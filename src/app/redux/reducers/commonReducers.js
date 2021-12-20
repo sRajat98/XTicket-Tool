@@ -14,7 +14,8 @@ const initalState = {
     allAdminUsersInDeptLoading: false,
     allAdminUsersInDeptFailure: false,
   },
-  departments: []
+  departments: [],
+  domains: []
 };
 
 const commonReducer = (state = initalState, action) => {
@@ -57,14 +58,14 @@ const commonReducer = (state = initalState, action) => {
         },
       };
     case types.GET_ALL_ADMIN_USERS_IN_DEPT_LOADING:
-       return {
-         ...state,
-         allAdminData: {
-           ...state.allAdminData,
-           allAdminUsersInDeptLoading: true,
-           allAdminUsersInDeptLoading: false,
-         },
-       };
+      return {
+        ...state,
+        allAdminData: {
+          ...state.allAdminData,
+          allAdminUsersInDeptLoading: true,
+          allAdminUsersInDeptLoading: false,
+        },
+      };
     case types.GET_ALL_ADMIN_USERS_SUCCESS:
       return {
         ...state,
@@ -85,15 +86,15 @@ const commonReducer = (state = initalState, action) => {
         },
       };
     case types.GET_ALL_ADMIN_USERS_IN_DEPT_SUCCESS:
-       return {
-         ...state,
-         allAdminData: {
-           ...state.allAdminData,
-           allAdminUsersInDept: action.data.data,
-           allAdminUsersInDeptLoading: false,
-           allAdminUsersInDeptFailure: false,
-         },
-       };
+      return {
+        ...state,
+        allAdminData: {
+          ...state.allAdminData,
+          allAdminUsersInDept: action.data.data,
+          allAdminUsersInDeptLoading: false,
+          allAdminUsersInDeptFailure: false,
+        },
+      };
     case types.GET_ALL_ADMIN_USERS_IN_DEPT_FAILURE:
       return {
         ...state,
@@ -105,12 +106,21 @@ const commonReducer = (state = initalState, action) => {
       };
     case types.GET_ALL_DEPARTMENTS_SUCCESS:
       let departments = [];
-      if(action.data.result && action.data.result.departments){
+      if (action.data.result && action.data.result.departments) {
         departments = action.data.result.departments
-      } 
+      }
       return {
         ...state,
         departments
+      };
+    case types.GET_ALL_DOMAIN_SUCCESS:
+      let domains = [];
+      if (action.data && action.data.result) {
+        domains = action.data.result
+      }
+      return {
+        ...state,
+        domains
       };
     default:
       return { ...state };

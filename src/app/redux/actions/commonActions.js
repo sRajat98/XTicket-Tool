@@ -87,3 +87,17 @@ export const getAllDepartments = () => (dispatch) => {
     }
   );
 };
+
+export const getAllDomain = () => (dispatch) => {
+  XenieApi.get(exportUrl + configs.getAllDomain).then(
+    (response) => {
+      dispatch({
+        type: types.GET_ALL_DOMAIN_SUCCESS,
+        data: response.data,
+      });
+    },
+    (error) => {
+      dispatch({ type: types.GET_ALL_ADMIN_USERS_FAILURE, error });
+    }
+  );
+};
