@@ -63,11 +63,11 @@ function AddUser() {
       valid = false;
     }
 
-    if (manageAccessState.department === 0) {
+    if (Number(manageAccessState.department) === 0) {
       valid = false;
     }
 
-    if (manageAccessState.departmentName === 'IT' && manageAccessState.domain === 0) {
+    if (manageAccessState.departmentName === 'IT' && Number(manageAccessState.domain) === 0) {
       valid = false;
     }
     return valid;
