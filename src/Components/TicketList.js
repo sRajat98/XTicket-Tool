@@ -25,7 +25,7 @@ class TicketList extends Component {
             'x-access-channel': 'WEB'
         }
 
-        axios.get('https://xdesk.herokuapp.com/ticket-tool/v1/tickets?page=0&limit=2', { headers })
+        axios.get('http://192.168.1.104:8085/ticket-tool/v1/tickets?page=0&limit=2', { headers })
             .then(response => {
                 console.log(response.data.result);
                 this.setState({ post: response.data.result });
