@@ -83,17 +83,13 @@
     height: 30px;
     padding: 3px;
     border: transparent;
-    // text-transform: uppercase;
-    option {
-      // text-transform: uppercase;
-    }
     animation: moveInRight 1s cubic-bezier(0.23, 1, 0.32, 1) forwards;
   }
 
   input[type="submit"] {
     background-color: #300d2a;
     color: white;
-    align: right;
+    align-items: right;
   }
 }
 
@@ -146,6 +142,8 @@
   th {
     color: black;
     background-color: #ddd3ee;
+    position: sticky;
+    top: 0;
   }
   #header-row {
     background-color: #ddd3ee;

@@ -275,94 +275,96 @@ const ApprovalPageView = (props) => {
                 </div>
               </div>
             </div>
-            <table className="ticketListingTable">
-              <thead>
-                <tr id="header-row">
-                  <th>id</th>
-                  <th>Ticket Id</th>
-                  <th>Requested By</th>
-                  <th>Approver</th>
-                  <th>Approval Status</th>
-                  {view !== "Pending" ? <th>Comment</th> : null}
-                  {view === "Pending" ? <th>Action</th> : null}
-                </tr>
-              </thead>
+            <div style={{ overflow: "auto", maxHeight: "91vh" }}>
+              <table className="ticketListingTable">
+                <thead>
+                  <tr id="header-row">
+                    <th>id</th>
+                    <th>Ticket Id</th>
+                    <th>Requested By</th>
+                    <th>Approver</th>
+                    <th>Approval Status</th>
+                    {view !== "Pending" ? <th>Comment</th> : null}
+                    {view === "Pending" ? <th>Action</th> : null}
+                  </tr>
+                </thead>
 
-              <tbody>
-                {pendingRequests !== [] ? (
-                  tableData.map((request) => {
-                    return (
-                      <React.Fragment key={request.id}>
-                        <tr
-                          className="clickable"
-                          onClick={(e) => {
-                            getTicketDetails(request.ticketId);
-                            setRowDetails(request);
-                          }}
-                          key={request.id}
-                        >
-                          <td>{request.id}</td>
-                          <td>{request.ticketId}</td>
-                          <td>{request.createdByUser}</td>
-                          <td>{request.approver}</td>
-                          <td>{request.approvalStatus}</td>
-                          {view !== "Pending" ? (
-                            <td>
-                              {view === "Pending" ? (
-                                <input type="text" />
-                              ) : request.approvarComment ? (
-                                request.approvarComment
-                              ) : (
-                                "No Comment"
-                              )}
-                            </td>
-                          ) : null}
-                          {view === "Pending" ? (
-                            <td>
-                              {view === "Pending" ? (
-                                <>
-                                  {" "}
-                                  <img
-                                    src={Accepted}
-                                    height="20px"
-                                    title="Approve"
-                                    onClick={(e) =>
-                                      setValues(
-                                        e,
-                                        request.approvalToken,
-                                        request.approver,
-                                        request.ticketId,
-                                        "Approve"
-                                      )
-                                    }
-                                  />{" "}
-                                  <img
-                                    src={Rejected}
-                                    title="Reject"
-                                    height="20px"
-                                    onClick={(e) =>
-                                      setValues(
-                                        e,
-                                        request.rejectionToken,
-                                        request.approver,
-                                        request.ticketId,
-                                        "Reject"
-                                      )
-                                    }
-                                  />{" "}
-                                </>
-                              ) : null}{" "}
-                            </td>
-                          ) : null}
-                        </tr>
-                      </React.Fragment>
-                    );
-                  })
-                ) : (
-                  <tr>No approvals Here</tr>
-                )}
-              </tbody>
-            </table>
+                <tbody>
+                  {pendingRequests !== [] ? (
+                    tableData.map((request) => {
+                      return (
+                        <React.Fragment key={request.id}>
+                          <tr
+                            className="clickable"
+                            onClick={(e) => {
+                              getTicketDetails(request.ticketId);
+                              setRowDetails(request);
+                            }}
+                            key={request.id}
+                          >
+                            <td>{request.id}</td>
+                            <td>{request.ticketId}</td>
+                            <td>{request.createdByUser}</td>
+                            <td>{request.approver}</td>
+                            <td>{request.approvalStatus}</td>
+                            {view !== "Pending" ? (
+                              <td>
+                                {view === "Pending" ? (
+                                  <input type="text" />
+                                ) : request.approvarComment ? (
+                                  request.approvarComment
+                                ) : (
+                                  "No Comment"
+                                )}
+                              </td>
+                            ) : null}
+                            {view === "Pending" ? (
+                              <td>
+                                {view === "Pending" ? (
+                                  <>
+                                    {" "}
+                                    <img
+                                      src={Accepted}
+                                      height="20px"
+                                      title="Approve"
+                                      onClick={(e) =>
+                                        setValues(
+                                          e,
+                                          request.approvalToken,
+                                          request.approver,
+                                          request.ticketId,
+                                          "Approve"
+                                        )
+                                      }
+                                    />{" "}
+                                    <img
+                                      src={Rejected}
+                                      title="Reject"
+                                      height="20px"
+                                      onClick={(e) =>
+                                        setValues(
+                                          e,
+                                          request.rejectionToken,
+                                          request.approver,
+                                          request.ticketId,
+                                          "Reject"
+                                        )
+                                      }
+                                    />{" "}
+                                  </>
+                                ) : null}{" "}
+                              </td>
+                            ) : null}
+                          </tr>
+                        </React.Fragment>
+                      );
+                    })
+                  ) : (
+                    <tr>No approvals Here</tr>
+                  )}
+                </tbody>
+              </table>
+            </div>
           </>
         )
       ) : (
