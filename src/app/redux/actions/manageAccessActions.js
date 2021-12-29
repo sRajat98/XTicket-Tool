@@ -45,10 +45,10 @@ export const searchUserAction = (label, value) => (dispatch) => {
     );
 };
 
-export const assignDepttoUser = (emailId, departmentId, domainId) => (dispatch) => {
+export const assignDepttoUser = (emailId, departmentId) => (dispatch) => {
   XenieApi.post(
     `${exportUrl + configs.assignDepttoUser
-    }?emailId=${emailId}&departmentId=${departmentId}&profileId=${domainId}`
+    }?emailId=${emailId}&departmentId=${departmentId}`
   ).then(
     (response) => {
       dispatch({

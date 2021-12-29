@@ -45,16 +45,15 @@ function AddUser() {
   };
 
   const addUser = () => {
-    if (validateForm()) {
-      dispatch(showLoader("addUser"));
-      dispatch(
-        assignDepttoUser(
-          Object.keys(manageAccessState.selectedUser).length === 0 ? state.search : manageAccessState.selectedUser.contactInfo.email,
-          manageAccessState.department,
-          manageAccessState.domain
-        )
-      );
-    }
+    //if (validateForm()) {
+    dispatch(showLoader("addUser"));
+    dispatch(
+      assignDepttoUser(
+        Object.keys(manageAccessState.selectedUser).length === 0 ? state.search : manageAccessState.selectedUser.contactInfo.email,
+        manageAccessState.department
+      )
+    );
+    //}
   };
 
   const validateForm = () => {
@@ -141,7 +140,7 @@ function AddUser() {
                 : null}
             </styled.select>
           </div>
-          {manageAccessState.departmentName !== '' && manageAccessState.departmentName === "IT" ?
+          {/* {manageAccessState.departmentName !== '' && manageAccessState.departmentName === "IT" ?
             (<div className="form-group">
               <styled.label>Select Domain</styled.label>
               <styled.select
@@ -158,7 +157,7 @@ function AddUser() {
                   ))
                   : null}
               </styled.select>
-            </div>) : null}
+            </div>) : null} */}
           <div className="form-group">
             <styled.addBtn
               type="button"
