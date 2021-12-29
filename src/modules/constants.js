@@ -1,6 +1,6 @@
-//const API_HOST_PATH = "https://xenie.xebia.in";
+const API_HOST_PATH = "https://xenie.xebia.in";
 //const API_HOST_PATH = "https://xdesk.herokuapp.com";
-const API_HOST_PATH = "http://192.168.1.104:8085";
+//const API_HOST_PATH = "http://192.168.1.104:8085";
 
 export const constants = {
   SUCCESS: "success",
